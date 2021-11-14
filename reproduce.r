@@ -63,3 +63,22 @@ windows()
 par(mfrow = c(1, 2))
 hist(data$epc_100, freq = F,main="EPC standard assessment proceducre(SAP) points")
 boxplot(data$epc_100)
+
+windows()
+par(mfrow = c(3, 2))
+
+hist(data$imd_score, freq = F,xlab="imd_score", main="Index of Multiple deprivation(IMD) rank")
+hist(data$imd_level, freq = F,xlab="imd_level", main="Index of Multiple deprivation(IMD) decile")
+hist(data$barrier_score, freq = F, xlab="barrier_score", main="Barriers to housing and service rank")
+hist(data$barrier_level, freq = F, xlab="barrier_level", main="Barriers to housing and service decile")
+hist(data$crime_score, freq = F,xlab="crime_score", main="Crime rank")
+hist(data$crime_level, freq = F,xlab="crime_level", main="Crime decile")
+
+windows()
+par(mfrow = c(2, 2))
+hist(data$educ_score, freq = F,xlab="educ_score", main="Education skills and training deprivation rank")
+hist(data$educ_level, freq = F,xlab="educ_level", main="Education skills and training deprivation decile")
+hist(data$emp_score, freq = F,xlab="emp_score", main="Employment deprivation rank")
+hist(data$emp_level, freq = F,xlab="emp_level", main="Employment deprivation decile")
+
+#Histogram display needs to be rectified.
