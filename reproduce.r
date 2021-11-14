@@ -68,17 +68,41 @@ windows()
 par(mfrow = c(3, 2))
 
 hist(data$imd_score, freq = F,xlab="imd_score", main="Index of Multiple deprivation(IMD) rank")
-hist(data$imd_level, freq = F,xlab="imd_level", main="Index of Multiple deprivation(IMD) decile")
+hist(data$imd_level, freq = F,breaks=rep(1:10,each=2)+c(-.4,.4), xlab="imd_level", main="Index of Multiple deprivation(IMD) decile")
 hist(data$barrier_score, freq = F, xlab="barrier_score", main="Barriers to housing and service rank")
-hist(data$barrier_level, freq = F, xlab="barrier_level", main="Barriers to housing and service decile")
+hist(data$barrier_level, freq = F,breaks=rep(1:10,each=2)+c(-.4,.4), xlab="barrier_level", main="Barriers to housing and service decile")
 hist(data$crime_score, freq = F,xlab="crime_score", main="Crime rank")
-hist(data$crime_level, freq = F,xlab="crime_level", main="Crime decile")
+hist(data$crime_level, freq = F,breaks=rep(1:10,each=2)+c(-.4,.4),xlab="crime_level", main="Crime decile")
 
 windows()
 par(mfrow = c(2, 2))
 hist(data$educ_score, freq = F,xlab="educ_score", main="Education skills and training deprivation rank")
-hist(data$educ_level, freq = F,xlab="educ_level", main="Education skills and training deprivation decile")
+hist(data$educ_level, freq = F,xlab="educ_level",breaks=rep(1:10,each=2)+c(-.4,.4), main="Education skills and training deprivation decile")
 hist(data$emp_score, freq = F,xlab="emp_score", main="Employment deprivation rank")
-hist(data$emp_level, freq = F,xlab="emp_level", main="Employment deprivation decile")
+hist(data$emp_level, freq = F,xlab="emp_level",breaks=rep(1:10,each=2)+c(-.4,.4), main="Employment deprivation decile")
 
-#Histogram display needs to be rectified.
+geo <- function(x) {
+    f <- as.numeric(table(x)[2])
+    if (is.na(f)) {
+        f <- 0
+    }
+    z <- data.frame(
+        Transaction_Frequency = f,
+        Transaction_Fraction = f / 4201
+    )
+    return(z)
+}
+geo_band <- rbind(
+    geo(data$reg_north_west),
+    geo(data$reg_yorkshire_and_the_humber),
+    geo(data$reg_east_midlands),
+    geo(data$reg_west_midlands),
+    geo(data$reg_east_of_england),
+    geo(data$reg_london),
+    geo(data$reg_south_east),
+    geo(data$reg_south_west),
+    geo(data$reg_north_east)
+)
+
+print(geo_band)
+# what is population fraction column in table 4 pg 10??
