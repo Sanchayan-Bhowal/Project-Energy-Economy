@@ -90,8 +90,8 @@ hist(data$imd_score,
     freq = F, xlab = "imd_score",
     main = "Index of Multiple deprivation(IMD) rank"
 )
-hist(data$imd_level,
-    freq = F, breaks = rep(1:10, each = 2) + c(-.4, .4), xlab = "imd_level",
+barplot(table(data$imd_level) / 4201,
+    xlab = "imd_level",
     main = "Index of Multiple deprivation(IMD) decile"
 )
 
@@ -99,8 +99,8 @@ hist(data$barrier_score,
     freq = F, xlab = "barrier_score",
     main = "Barriers to housing and service rank"
 )
-hist(data$barrier_level,
-    freq = F, breaks = rep(1:10, each = 2) + c(-.4, .4), xlab = "barrier_level",
+barplot(table(data$barrier_level) / 4201,
+    xlab = "barrier_level",
     main = "Barriers to housing and service decile"
 )
 
@@ -108,8 +108,8 @@ hist(data$crime_score,
     freq = F, xlab = "crime_score",
     main = "Crime rank"
 )
-hist(data$crime_level,
-    freq = F, breaks = rep(1:10, each = 2) + c(-.4, .4), xlab = "crime_level",
+barplot(table(data$crime_level) / 4201,
+    xlab = "crime_level",
     main = "Crime decile"
 )
 
@@ -120,8 +120,8 @@ hist(data$educ_score,
     freq = F, xlab = "educ_score",
     main = "Education skills and training deprivation rank"
 )
-hist(data$educ_level,
-    freq = F, xlab = "educ_level", breaks = rep(1:10, each = 2) + c(-.4, .4),
+barplot(table(data$educ_level) / 4201,
+    xlab = "educ_level",
     main = "Education skills and training deprivation decile"
 )
 
@@ -129,8 +129,8 @@ hist(data$emp_score,
     freq = F, xlab = "emp_score",
     main = "Employment deprivation rank"
 )
-hist(data$emp_level,
-    freq = F, xlab = "emp_level", breaks = rep(1:10, each = 2) + c(-.4, .4),
+barplot(table(data$emp_level) / 4201,
+    xlab = "emp_level",
     main = "Employment deprivation decile"
 )
 
@@ -138,8 +138,8 @@ hist(data$health_score,
     freq = F, xlab = "health_score",
     main = "Health deprivation and disability rank"
 )
-hist(data$health_level,
-    freq = F, xlab = "health_level", breaks = rep(1:10, each = 2) + c(-.4, .4),
+barplot(table(data$health_level) / 4201,
+    xlab = "health_level",
     main = "Health deprivation and disability level"
 )
 
@@ -149,8 +149,8 @@ hist(data$income_score,
     freq = F, xlab = "income_score",
     main = "Income deprivation rank"
 )
-hist(data$income_level,
-    freq = F, xlab = "income_level", breaks = rep(1:10, each = 2) + c(-.4, .4),
+barplot(table(data$income_level) / 4201,
+    xlab = "income_level",
     main = "Income deprivation decile"
 )
 
@@ -158,8 +158,8 @@ hist(data$living_score,
     freq = F, xlab = "living_score",
     main = "Living environment deprivation rank"
 )
-hist(data$living_level,
-    freq = F, xlab = "living_level", breaks = rep(1:10, each = 2) + c(-.4, .4),
+barplot(table(data$living_level) / 4201,
+    xlab = "living_level",
     main = "Living environment deprivation decile"
 )
 
