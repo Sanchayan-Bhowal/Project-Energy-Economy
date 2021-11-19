@@ -34,7 +34,7 @@ epc_price2 <- lm(ln_price_2 ~ epc_rating_a + epc_rating_b +
 sink("linear models.txt")
 print(summary(epc_price1))
 print(summary(epc_price2))
-sink()
+
 
 # relation of rating and time between sale
 windows()
@@ -47,6 +47,13 @@ barplot(
 
 boxplot(data$days_between_sale ~ epc_rating)
 
+# hedonic regression of time wrt rating
+epc_time <- lm(days_between_sale ~ epc_rating_a + epc_rating_b +
+    epc_rating_c + epc_rating_d +
+    epc_rating_e + epc_rating_f + epc_rating_g, data = data)
+
+print(summary(epc_time))
+sink()
 
 # relation of region and rating
 windows()
