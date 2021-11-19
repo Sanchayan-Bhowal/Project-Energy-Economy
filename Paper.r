@@ -22,6 +22,20 @@ par(mfrow = c(1, 2))
 boxplot(data$ln_price_1 ~ epc_rating)
 boxplot(data$ln_price_2 ~ epc_rating)
 
+# hedonic regression of prices wrt rating
+epc_price1 <- lm(ln_price_1 ~ epc_rating_a + epc_rating_b +
+    epc_rating_c + epc_rating_d +
+    epc_rating_e + epc_rating_f + epc_rating_g, data = data)
+
+epc_price2 <- lm(ln_price_2 ~ epc_rating_a + epc_rating_b +
+    epc_rating_c + epc_rating_d +
+    epc_rating_e + epc_rating_f + epc_rating_g, data = data)
+
+sink("linear models.txt")
+print(summary(epc_price1))
+print(summary(epc_price2))
+sink()
+
 # relation of rating and time between sale
 windows()
 par(mfrow = c(1, 2))
@@ -32,6 +46,7 @@ barplot(
 )
 
 boxplot(data$days_between_sale ~ epc_rating)
+
 
 # relation of region and rating
 windows()
