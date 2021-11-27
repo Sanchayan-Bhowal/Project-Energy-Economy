@@ -103,6 +103,19 @@ windows()
 par(mfrow = c(2, 2))
 plot(epc_price2)
 
+# Partial Residue plots
+windows()
+par(mfrow = c(4, 6))
+termplot(epc_price1,
+    partial.resid = TRUE, col.res = "purple", smooth = panel.smooth
+)
+
+windows()
+par(mfrow = c(4, 6))
+termplot(epc_price2,
+    partial.resid = TRUE, col.res = "purple", smooth = panel.smooth
+)
+
 
 # relation of rating and time between sale
 windows()
@@ -254,3 +267,15 @@ title(
     xlab = "Variables"
 )
 sink()
+
+windows()
+par(mfrow = c(4, 5))
+termplot(epc_price1_cont,
+    partial.resid = TRUE, col.res = "purple", smooth = panel.smooth
+)
+
+windows()
+par(mfrow = c(4, 5))
+termplot(epc_price2_cont,
+    partial.resid = TRUE, col.res = "purple", smooth = panel.smooth
+)
