@@ -279,3 +279,24 @@ par(mfrow = c(4, 5))
 termplot(epc_price2_cont,
     partial.resid = TRUE, col.res = "purple", smooth = panel.smooth
 )
+
+# Repeat sales index
+rsi <- read.csv("RSI.csv")
+index <- lm(log_change ~ 0 + Y1995 + Y1996 + Y1997 + Y1998 + Y1999 +
+    Y2000 + Y2001 + Y2002 + Y2003 + Y2004 + Y2005 + Y2006 + Y2007 + Y2008
+    + Y2009 + Y2010 + Y2011 + Y2012, data = rsi)
+windows()
+rs_index <- exp(coef(index))
+rs_index[is.na(rs_index)] <- 1
+plot(rs_index, type = "o", axes = F, xlab = "", ylab = "", col = "blue")
+axis(2)
+axis(1,
+    at = 1:18,
+    labels = gsub("Y", "", colnames(rsi)[3:20]),
+    padj = 1
+)
+title(
+    main = "Repeated Sales Index",
+    ylab = "Index",
+    xlab = "Year"
+)
