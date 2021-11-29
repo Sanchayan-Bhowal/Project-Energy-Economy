@@ -1,0 +1,197 @@
+%
+% IET Electronics Letters example
+% Tibault Reveyrand - http://www.microwave.fr
+%
+% http://www.microwave.fr/LaTeX.html
+% ---------------------------------------
+
+
+\documentclass[twocolumn]{el-author}
+\newcommand{\hH}{\hat{H}}
+\newcommand{\D}{^\dagger}
+\newcommand{\ua}{\uparrow}
+\newcommand{\nc}{\newcommand}
+\nc{\da}{\downarrow} \nc{\hc}{\hat{c}} \nc{\hS}{\hat{S}}
+\nc{\bra}{\langle} \nc{\ket}{\rangle} \nc{\eq}{equation (\ref}
+\nc{\h}{\hat} \nc{\hT}{\h{T}}\nc{\be}{\begin{eqnarray}}
+\nc{\ee}{\end{eqnarray}}\nc{\rd}{\textrm{d}}\nc{\e}{eqnarray}\nc{\hR}{\hat{R}}\nc{\Tr}{\mathrm{Tr}}
+\nc{\tS}{\tilde{S}}\nc{\tr}{\mathrm{tr}}\nc{\8}{\infty}\nc{\lgs}{\bra\ua,\phi|}\nc{\rgs}{|\ua,\phi\ket}
+\nc{\hU}{\hat{U}}\nc{\lfs}{\bra\phi|}\nc{\rfs}{|\phi\ket}\nc{\hZ}{\hat{Z}}\nc{\hd}{\hat{d}}\nc{\mD}{\mathcal{D}}
+\nc{\bd}{\bar{d}}\nc{\bc}{\bar{c}}\nc{\mc}{\mathcal}\nc{\ea}{eqnarray}\nc{\mG}{\mathcal{G}}\nc{\bce}{\begin{center}}
+\nc{\ece}{\end{center}}
+\date{12th December 2011}
+
+\begin{document}
+
+\title{{Time-reversal duality of high-efficiency RF power amplifiers}}
+
+\author{T. Reveyrand, I. Ramos and Z. Popovi\'c}
+
+
+
+% =========================================================================
+% ABSTRACT
+% =========================================================================
+
+\abstract{This paper discusses the similarity between RF power amplifiers and rectifiers. We show that the same high-efficiency harmonically-terminated power amplifier can be operated in a dual rectifier mode. Nonlinear simulations with a GaN HEMT transistor model show the time-reversal intrinsic voltage and current waveform relationship between a class-F amplifier and rectifier. Measurements on a class-F$^{-1}$ amplifier and rectifier at 2.14\,GHz demonstrate over 80\% efficiency in both cases. }
+
+\maketitle
+
+
+% =========================================================================
+% INTRO
+% =========================================================================
+
+\section{Introduction}
+
+High-efficiency RF power amplifiers are designed by presenting appropriate output impedances at the fundamental and harmonic frequencies, in order to shape the current and voltage waveforms across the current source of the device in a way that minimizes the power dissipation $v(t) \cdot i(t)$. In the past few years, PAs implemented in GaN HEMT technologies have demonstrated power added efficiencies (PAEs) above 80\% using a single transistor. In this letter, we show that a harmonically-terminated transistor amplifier is a bidirectional device that exibits high efficiency in both amplifier and rectifier modes. High power conversion efficiency of a power amplifier (DC to RF) and a rectifier obtained by operating the amplifier in reverse (RF to DC) is achieved with time-reversal duality \cite{1} of the transistor's main current source. In other words, the power amplifier (PA) and rectifier (R) drain terminal voltage and current are related by $v_{PA}(t)=v_R(t)$ and $i_{PA}(t)=-i_R(t)$, respectively. The block diagram in Fig. \ref{Fig-ELett} shows the main PA and rectifier parameters that are discussed here. 
+
+
+% Fig.1
+\begin{figure} [h]
+\centering{\includegraphics[width=90mm]{pdf/c3.pdf}}
+\caption{Block diagram of a power amplifier circuit operated in PA mode (left) and rectifier mode (right). 
+\source{}}\label{Fig-ELett}
+\end{figure}
+
+
+In the remainder of the letter, simulations of a class-F amplifier based on a GaN HEMT are used to illustrate the time-reversal duality of power amplifiers and rectifiers. This example uses a nonlinear device model in a high-efficiency amplifier circuit. Non-linear simulations result in time-reversed dual current and voltage waveforms at the virtual drain of the PA and rectifier. After the principle is demonstrated though simulations of intrinsic waveforms, measurements on a class-F$^{-1}$ GaN power amplifier using a TriQuint device are compared for PA and rectifier configurations, with the goal of demonstrating that this duality holds for various high-efficiency amplifier and rectifier circuits. 
+%
+%
+% =========================================================================
+% PART 1 : SIMULATION
+% =========================================================================
+%
+\section{Simulations of PA and rectifier}
+Simulations have been performed with the 8x75$\mu m$ GaN HEMT model described in \cite{2} at 2.14\,GHz. This non-linear model includes: non-linear capacitances $C_{gs}$, $C_{gd}$ and $C_{ds}$; gate-souce and gate-drain diodes; and breakdown and trapping effects. This model reproduces the nonlinear transistor behavior not only for positive, but also for negative values of the drain voltage.
+
+
+For the amplifier mode of operation, when an input RF signal is injected into the gate terminal, we consider the drain efficiency, or DC-to-RF conversion efficiency: 
+\begin{align} \eta_{PA}=\frac{P_{out,RF}}{P_{DC}}\end{align}
+In class-F mode with 5 harmonics terminated, for $V_{ds}=28V$ and $V_{gs}=-4.9V$, an amplifier efficiency $\eta_{PA}=72\%$ is obtained. The simulated behavior of the transistor is depicted on Fig. \ref{Simulations_A} (a) and \ref{Simulations_B} (a), showing the I-V curves and load-line, and intrinsic drain voltage and current waveforms, respectively.
+
+The same class-F PA circuit is next simulated in rectifier mode, where the drain DC power supply is replaced by a DC load $R_{DC}$. The input to the circuit is now RF power $P_{in,RF}$ equal to $P_{out,RF}$ of the amplifier, and injected at the drain port as illustrated on Fig. \ref{Simulation_LP}. Assuming the DC gate current is negligible, the rectifier RF-to-DC conversion efficiency is 
+\begin{align}
+  \eta_{R}=\frac{P_{DC}}{P_{in,RF}}
+  =\frac{2{\left|V_{DC}\right|}^2}{R_{DC}\Re{\left\{V_{drain}(f_0)I_{drain}^*(f_0)\right\}}.}
+\end{align}
+
+An impedance tuner connected at the gate input of the PA allows load-pull at the gate resulting in $\eta_{R}=80\%$ with $R_{DC}$=120$\Omega$ ($f_{RF}$=2.14GHz). Fig. \ref{Simulations_A} (b) and \ref{Simulations_B} (b)  illustrate the behavior of the transistor for RF gate load impedance that maximizes rectifier efficiency. The waveforms at the intrinsic drain of the transistor correspond to time-reversed class-F waveforms. The gate-port load-pull contours are displayed in Fig. \ref{Simulation_LP}. The figure also shows the  optimal impedance for $\eta_{R}$ at $f_{RF}$ which is related to a dynamic load-line with a minimal enclosed area, and close to the I-V characteristic given at constant $V_{gs}$.
+%
+% --- Fig. 2
+\begin{figure}[h]
+\centering{\includegraphics[width=50mm]{pdf/Simulations_A.pdf}}
+\caption{Simulated GaN transistor I-V curves (gray), dynamic load lines (red) and drain DC voltage and current (black) for the PA (a) and rectifier (b). The blue line is the $Vgs=-4.9V$ transistor characteristic (the gate bias point value for both cases). Time-reversal duality is seen as the RF power at the drain is swept from 0 to 40\,dBm at 2.14\,GHz. The PA case has a drain bias of 28\,V.}\label{Simulations_A}
+\end{figure}
+%
+% --- Fig. 3
+\begin{figure}[h]
+\centering{\includegraphics[width=50mm]{pdf/Simulations_B.pdf}}
+\caption{Simulated time-domain intrinsic drain voltage (blue) and current (red) waveforms for varying RF power at the drain in the case of a PA (a) and rectifier (b). In the case of the PA, V$_{ds}=28V$.}
+\label{Simulations_B}
+\end{figure}
+%
+%
+% --- Fig. 4
+\begin{figure}[h]
+\centering{\includegraphics[width=85mm]{pdf/LP_rect_simul.pdf}}
+\caption{Load-pull simulations for rectifier efficiency obtained at the transistor terminals. The frequency is 2.45\,GHz and RF drain input power is 40\,dBm. The diamond symbol shows the impedance for maximal efficiency.}\label{Simulation_LP}
+\end{figure}
+%
+% =========================================================================
+% PART 2 : MEASUREMENT
+% =========================================================================
+%
+\section{Measurements of PA and rectifier}
+Measurements are performed on a single-transistor GaN class-F$^{-1}$ power amplifier detailed in \cite{3}. This hybrid PA uses a TriQuint TGF2023-02 12-W bare die, and gives $P_{out,RF}$=7\,W with over 84.6\% PAE at a drain voltage of 31\,V and with a 19\,dB gain at 2.14\,GHz. The output matching circuit is designed by load-pull and has terminated second and third harmonics which are designed to give class-F$^{-1}$ waveforms at the virtual drain reference plane. The gate is matched for large-signal gain at 2.14\,GHz. This PA, biased at $V_{gs}=-4.4$V, was characterized in rectifier mode, with the reference plane set at the coaxial drain-port connector. A time-domain load-pull setup (Fig. \ref{bench}) was used to obtain load-pull results at $R_{DC}=98\Omega$ shown in Fig. \ref{measurements}. The best rectifier efficiency $\eta_{R}=85\%$ is obtained for $Z_{load}=(229+j.9)\Omega$ at $P_{in,RF}=$41\,dBm with $V_{DC}=$31\,V.
+%
+%
+% --- Fig. 5
+\begin{figure} [h]
+\centering{\includegraphics[width=85mm]{pdf/bench.pdf}}
+\caption{Rectifier load-pull measurement setup. An RF power sweep is performed at the input drain port for each RF impedance provided by the tuner at the gate port. The output DC power delivered to the load $R_{DC}$ is calculated from the DC voltage as measured by a voltmeter. 
+\source{}}\label{bench}
+\end{figure}
+%
+%
+% --- Fig. 6
+\begin{figure}[h]
+\centering{\includegraphics[width=85mm]{pdf/Measurements_rw.pdf}}
+\caption{Rectifier performance measured at the coaxial reference planes ($f_{RF}$=2.14\,GHz). Left: RF load impedances used for measurements (black dots), where the contours correspond to $max\{\eta_R\}$ for the complete power sweep applied to the RF drain port. Right: $V_{DC}$ and $\eta_R$ measured for $R_{DC}=98\Omega$ and $Z_{load}=(229+j.9)\Omega$\source{}}\label{measurements}
+\end{figure}
+%
+%
+%=== Clean : Enable it before submission. I disabled it to check the 3col n half max requirement
+% \vfill\pagebreak
+%
+%
+%
+% =========================================================================
+% CONCLUSION
+% =========================================================================
+%
+\section{Discussion}
+While it was previously shown that harmonic terminations defined for power amplifier modes of operation can be used for diode and transistor rectifiers \cite{4}, the non-linear simulations and experiments in this letter demonstrate the time-reversal duality of high-efficiency microwave power amplifiers and rectifiers. In this case, the rectifier is obtained by operating the power amplifier in reverse mode, and the insight into transistor intrinsic waveforms is made possible by a GaN HEMT nonlinear model originally developped for switches. Over 80\% conversion efficiency is demonstrated for both modes of circuit operation, starting from a harmonically-terminated PA design.  
+
+Note that the simulations and measurements for the rectifier are performed in self-synchronous mode, i.e. there is no input RF power incident externally into the gate port of the PA, unlike in previous lower-frequency transistor rectifier work \cite{5}\cite{6}. This is possible due to the non-negligible nonlinear feedback capacitance $C_{gd}$, which couples some of the input RF signal from the drain to the gate. In the class-F simulations, an isolation of 18\,dB is observed between the drain and the gate ports with $C_{gd}\approx$108\,fF. With the appropriate gate complex impedance the transistor can operate as a self-synchronous rectifier. 
+%
+% =========================================================================
+% =========================================================================
+% =========================================================================
+%
+\vskip3pt
+\ack{This work was funded in part by the Office of Naval Research under the DARPA Microscale Power Conversion (MPC) Program under Grant N00014-11-1-0931, and in part by the Advanced Research Projects Agency-
+Energy (ARPA-E) under Award Number DE-AR0000216.
+}
+%
+\vskip5pt
+%
+\noindent T. Reveyrand (\textit{C2S2 Department, XLIM UMR 6172, 123 Avenue Albert Thomas, Limoges Cedex 87060, France})
+\vskip3pt
+%
+\noindent I. Ramos and Z. Popovi\'c (\textit{Department of Electrical, Computer and Energy Engineering, University of Colorado, Boulder, CO 80309-0425, USA})
+\vskip3pt
+%
+\noindent E-mail: zoya.popovic@colorado.edu
+
+\begin{thebibliography}{}
+
+\bibitem{1}
+Hamill, D.C.: `Time Reversal Duality and the synthesis of a double class E DC-DC converter',
+\textit{21st Annual IEEE Power Electronics Specialists Conference}, 1990, pp. 512-521
+
+\bibitem{2}
+Callet, G.,  Faraj, J.,  Jardel, O.,  Charbonniaud, C.,  Jacquet, J.C., Reveyrand,~T., Morvan, E., Piotrowicz, S., Teyssier, J.P. and Qu\'er\'e R.: `A new nonlinear HEMT model for AlGaN/GaN switch applications',
+\textit{Intern. Journal of Microwave and Wireless Techn.}, 2010, \textbf{2}, (3-4), pp. 283-291
+
+\bibitem{3}
+Roberg, M., Hoversten, J., and Popovi\'c, Z.: `GaN HEMT PA with over 84\% power added efficiency',
+\textit{Electronics Letters}, 2010,
+\textbf{46}, (23), pp. 1553-1554
+
+\bibitem{4}
+Roberg, M., Falkenstein, E., and Popovi\'c, Z.: `High-efficiency harmonically-terminated rectifier for wireless powering applications',
+\textit{IEEE MTT-S International Microwave Symposium Digest},2012
+
+\bibitem{5}
+Kazimierczuk, M.K., Jozwik, J.J.: `Analysis and design of class E zero-current-switching rectifier',
+\textit{IEEE Transactions on Circuits and Systems},1990,
+\textbf{37}, (8), pp.1000-1009
+
+
+\bibitem{6}
+Nieves Ruiz, M., Marante, R. and Garcia, J.A.
+: `A class e synchronous rectifier based on an e-phemt device for wireless powering applications',
+\textit{IEEE MTT-S International Microwave Symposium Digest},2012
+
+
+
+
+ 
+
+
+\end{thebibliography}
+
+\end{document}
+
+
