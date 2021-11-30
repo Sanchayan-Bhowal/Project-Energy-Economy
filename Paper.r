@@ -1,13 +1,13 @@
 Data <- read.csv("Data.csv") # nolint
 
-#INDEX
-#Hedonic regression of prices (band)
-#relation of rating and time between sale
-#hedonic regression of time
-#relation of regions and house prices
-#relation of regions and time between sale
-#Hedonic regression of prices (continuous)
-#Repeat sales index
+# INDEX
+# Hedonic regression of prices (band)
+# relation of rating and time between sale
+# hedonic regression of time
+# relation of regions and house prices
+# relation of regions and time between sale
+# Hedonic regression of prices (continuous)
+# Repeat sales index
 
 
 # relation of rating and house prices
@@ -77,9 +77,9 @@ epc_price2$coefficients[is.na(epc_price2$coefficients)] <- 0
 hedonic_price1 <- exp(epc_price1$coefficients) # hedonic price index1
 hedonic_price2 <- exp(epc_price2$coefficients) # hedonic price index2
 
-#confidence intervals for model coefficients
-confint(epc_price1, conf.level=0.95)
-confint(epc_price2, conf.level=0.95)
+# confidence intervals for model coefficients
+confint(epc_price1, conf.level = 0.95)
+confint(epc_price2, conf.level = 0.95)
 
 
 windows()
@@ -105,7 +105,8 @@ title(
     xlab = "Variables"
 )
 
-# diagnostic plots for the model- 4 Residual plots- Residual = True value - Fitted value
+# Diagnostic plots for the model- 4 Residual plots-
+# Residual = True value - Fitted value
 # Residuals vs Fitted
 # Normal Probability Plot of Residuals
 # sqrt(|standardized residual|) vs fitted values
@@ -259,9 +260,9 @@ epc_price2_cont$coefficients[is.na(epc_price2_cont$coefficients)] <- 0
 hedonic_price1_cont <- exp(epc_price1_cont$coefficients)
 hedonic_price2_cont <- exp(epc_price2_cont$coefficients)
 
-#confidence intervals for model coefficients
-confint(epc_price1_cont, conf.level=0.95)
-confint(epc_price2_cont, conf.level=0.95)
+# confidence intervals for model coefficients
+confint(epc_price1_cont, conf.level = 0.95)
+confint(epc_price2_cont, conf.level = 0.95)
 
 windows()
 plot(1:18, hedonic_price1_cont[-1],

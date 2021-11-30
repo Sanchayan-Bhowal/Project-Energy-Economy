@@ -1,5 +1,5 @@
 # Reproduction of page 7,8 in data paper
-data <- read.csv("data.csv")
+data <- read.csv("Data.csv")
 library(timeDate)
 library(DescTools)
 describe <- function(variable) {
@@ -12,7 +12,7 @@ describe <- function(variable) {
         Smallest = min(variable),
         Largest = max(variable),
         Obs = length(variable),
-        Normality = as.numeric(ShapiroFranciaTest(variable)[2]),
+        Normality = as.numeric(ShapiroFranciaTest(variable)[2])
     )
     return(z)
 }
@@ -28,7 +28,6 @@ result <- rbind(
 
 print(result)
 
-# We can add Normality check for the data set. qq plots.
 
 windows()
 par(mfrow = c(2, 2))
