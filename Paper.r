@@ -100,7 +100,7 @@ axis(1,
     padj = 1, pos = 0.7, cex.axis = 0.65
 )
 title(
-    main = "Coefficients in OLS(continuous) estimations",
+    main = "Coefficients in OLS(band) estimations",
     ylab = "Coefficients",
     xlab = "Variables"
 )
@@ -257,8 +257,8 @@ print(summary(epc_price2_cont))
 epc_price1_cont$coefficients[is.na(epc_price1_cont$coefficients)] <- 0
 epc_price2_cont$coefficients[is.na(epc_price2_cont$coefficients)] <- 0
 
-hedonic_price1_cont <- exp(epc_price1_cont$coefficients)
-hedonic_price2_cont <- exp(epc_price2_cont$coefficients)
+hedonic_price1_cont <- abs(epc_price1_cont$coefficients)
+hedonic_price2_cont <- abs(epc_price2_cont$coefficients)
 
 # confidence intervals for model coefficients
 confint(epc_price1_cont, conf.level = 0.95)
@@ -270,7 +270,7 @@ plot(1:18, hedonic_price1_cont[-1],
     axes = F,
     ylab = "",
     xlab = "",
-    ylim = c(0.5, 1.65)
+    ylim = c(-0.06, 0.5)
 )
 lines(1:18, hedonic_price1_cont[-1], type = "o", col = "blue")
 lines(1:18, hedonic_price2_cont[-1], type = "o", col = "green")
@@ -278,7 +278,7 @@ axis(2)
 axis(1,
     at = 1:18,
     labels = gsub("_", "\n", names(hedonic_price1_cont)[-1]),
-    padj = 1, pos = 0.6
+    padj = 1, pos = -0.04
 )
 title(
     main = "Coefficients in OLS(continuous) estimations",
