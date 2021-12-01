@@ -32,19 +32,21 @@ print(result)
 windows()
 par(mfrow = c(2, 2))
 hist(data$ln_price_1,
-    freq = F, breaks = 30, xlim = range(c(8, 16)),
+    freq = F, breaks = 30,
+    xlim = range(c(8, 16)), col = "#3C78D8",
     main = "Natural logarithm of first transaction price"
 )
 hist(data$ln_price_2,
-    freq = F, breaks = 30, xlim = range(c(10, 16)),
+    freq = F, breaks = 30,
+    xlim = range(c(10, 16)), col = "#3C78D8",
     main = "Natural logarithm of second transaction price"
 )
 hist(data$perc_change_p2_to_p1,
-    freq = F, breaks = 30,
+    freq = F, breaks = 30, col = "#3C78D8",
     main = "Percentual price change between transactions"
 )
 hist(data$days_between_sale,
-    freq = F, breaks = 35,
+    freq = F, breaks = 35, col = "#3C78D8",
     main = "Period of time between both transactions"
 )
 
@@ -75,10 +77,11 @@ print(epc_band)
 windows()
 par(mfrow = c(1, 2))
 hist(data$epc_100,
-    freq = F,
+    freq = F, col = "#3C78D8",
     main = "EPC standard assessment proceducre(SAP) points"
 )
 boxplot(data$epc_100,
+    col = "#2FD7B4",
     main = "EPC standard assessment proceducre(SAP) points"
 )
 
@@ -86,29 +89,32 @@ windows()
 par(mfrow = c(3, 2))
 
 hist(data$imd_score,
-    freq = F, xlab = "imd_score",
+    freq = F, xlab = "imd_score", col = "#3C78D8",
     main = "Index of Multiple deprivation(IMD) rank"
 )
 barplot(table(data$imd_level) / 4201,
     xlab = "imd_level",
+    col = topo.colors(10),
     main = "Index of Multiple deprivation(IMD) decile"
 )
 
 hist(data$barrier_score,
-    freq = F, xlab = "barrier_score",
+    freq = F, xlab = "barrier_score", col = "#3C78D8",
     main = "Barriers to housing and service rank"
 )
 barplot(table(data$barrier_level) / 4201,
     xlab = "barrier_level",
+    col = topo.colors(10),
     main = "Barriers to housing and service decile"
 )
 
 hist(data$crime_score,
-    freq = F, xlab = "crime_score",
+    freq = F, xlab = "crime_score", col = "#3C78D8",
     main = "Crime rank"
 )
 barplot(table(data$crime_level) / 4201,
     xlab = "crime_level",
+    col = topo.colors(10),
     main = "Crime decile"
 )
 
@@ -116,49 +122,54 @@ windows()
 par(mfrow = c(3, 2))
 
 hist(data$educ_score,
-    freq = F, xlab = "educ_score",
+    freq = F, xlab = "educ_score", col = "#3C78D8",
     main = "Education skills and training deprivation rank"
 )
 barplot(table(data$educ_level) / 4201,
     xlab = "educ_level",
+    col = topo.colors(10),
     main = "Education skills and training deprivation decile"
 )
 
 hist(data$emp_score,
-    freq = F, xlab = "emp_score",
+    freq = F, xlab = "emp_score", col = "#3C78D8",
     main = "Employment deprivation rank"
 )
 barplot(table(data$emp_level) / 4201,
     xlab = "emp_level",
+    col = topo.colors(10),
     main = "Employment deprivation decile"
 )
 
 hist(data$health_score,
-    freq = F, xlab = "health_score",
+    freq = F, xlab = "health_score", col = "#3C78D8",
     main = "Health deprivation and disability rank"
 )
 barplot(table(data$health_level) / 4201,
     xlab = "health_level",
+    col = topo.colors(10),
     main = "Health deprivation and disability level"
 )
 
 windows()
 par(mfrow = c(2, 2))
 hist(data$income_score,
-    freq = F, xlab = "income_score",
+    freq = F, xlab = "income_score", col = "#3C78D8",
     main = "Income deprivation rank"
 )
 barplot(table(data$income_level) / 4201,
     xlab = "income_level",
+    col = topo.colors(10),
     main = "Income deprivation decile"
 )
 
 hist(data$living_score,
-    freq = F, xlab = "living_score",
+    freq = F, xlab = "living_score", col = "#3C78D8",
     main = "Living environment deprivation rank"
 )
 barplot(table(data$living_level) / 4201,
     xlab = "living_level",
+    col = topo.colors(10),
     main = "Living environment deprivation decile"
 )
 
