@@ -26,6 +26,7 @@ barplot(
     ),
     beside = TRUE, ylim = c(0, 12),
     names.arg = c("B", "C", "D", "E", "F", "G"),
+    col = c("#00CEF6", "#3C78D8"),
     xlab = "epc_rating",
     ylab = "Mean of logarithm of price",
     main = "Relating of EPC with sales price",
@@ -33,8 +34,8 @@ barplot(
 windows()
 par(mfrow = c(1, 2))
 
-boxplot(Data$ln_price_1 ~ epc_rating, ylab = "ln_price_1")
-boxplot(Data$ln_price_2 ~ epc_rating, ylab = "ln_price_2")
+boxplot(Data$ln_price_1 ~ epc_rating, ylab = "ln_price_1", col = c("#00CEF6"))
+boxplot(Data$ln_price_2 ~ epc_rating, ylab = "ln_price_2", col = c("#3C78D8"))
 
 
 # hedonic regression of prices
@@ -91,8 +92,8 @@ plot(1:24, hedonic_price1[-1],
     ylim = c(0.7, 1.9)
 )
 
-lines(1:24, hedonic_price1[-1], type = "o", col = "blue")
-lines(1:24, hedonic_price2[-1], type = "o", col = "green")
+lines(1:24, hedonic_price1[-1], type = "o", col = "#3C78D8")
+lines(1:24, hedonic_price2[-1], type = "o", col = "#8EC400")
 axis(2)
 axis(1,
     at = 1:24,
@@ -111,12 +112,12 @@ title(
 # Normal Probability Plot of Residuals
 # sqrt(|standardized residual|) vs fitted values
 # Residuals vs Leverage
-windows()
-par(mfrow = c(2, 2))
-plot(epc_price1)
-windows()
-par(mfrow = c(2, 2))
-plot(epc_price2)
+for (i in 1:6) {
+    windows()
+    par(mfrow = c(1, 2))
+    plot(epc_price1, which = c(i), col = blues9)
+    plot(epc_price2, which = c(i), col = blues9)
+}
 
 # Partial Residue plots
 windows()
@@ -139,25 +140,13 @@ barplot(
     tapply(Data$days_between_sale, epc_rating, mean),
     beside = TRUE,
     names.arg = c("B", "C", "D", "E", "F", "G"),
+    col = c("#00CEF6", "#3C78D8"),
     xlab = "EPC rating", ylab = "Mean days between sale"
 )
 boxplot(Data$days_between_sale ~ epc_rating,
-    xlab = "EPC rating", ylab = "Days between sale"
+    xlab = "EPC rating", ylab = "Days between sale", col = c("#00CEF6")
 )
 
-# hedonic regression of time
-epc_time <- lm(days_between_sale ~ epc_rating_a + epc_rating_b +
-    epc_rating_c + epc_rating_d +
-    epc_rating_e + epc_rating_f + epc_rating_g +
-    imd_level + income_level +
-    emp_level + educ_level +
-    health_level + crime_level +
-    barrier_level + living_level +
-    reg_north_east + reg_north_west +
-    reg_yorkshire_and_the_humber + reg_east_midlands +
-    reg_west_midlands + reg_east_of_england +
-    reg_london + reg_south_east + reg_south_west, data = Data)
-print(summary(epc_time))
 sink()
 
 # relation of region and rating
@@ -175,9 +164,10 @@ barplot(
         tapply(Data$reg_south_west, epc_rating, sum)
     ) / 4201),
     ylim = c(0, 0.2),
-    names.arg = gsub("_", " ", substring(colnames(Data)[35:43], 5)),
+    names.arg = gsub("_", " ", substring(colnames(Data)[36:44], 5)),
+    col = rev(blues9),
     xlab = "Regions",
-    ylab = "Sum of EPC rating"
+    ylab = "Frequency"
 )
 
 regions <- Data$reg_north_east +
@@ -198,18 +188,21 @@ barplot(
         tapply(Data$ln_price_2, regions, mean)
     ),
     beside = TRUE, ylim = c(0, 14),
-    names.arg = gsub("_", " ", substring(colnames(Data)[35:43], 5)),
+    names.arg = gsub("_", " ", substring(colnames(Data)[36:44], 5)),
     xlab = "Regions",
+    col = c("#00CEF6", "#3C78D8"),
     ylab = "Mean of logarithm of sales price"
 )
 
 windows()
 par(mfrow = c(1, 2))
 boxplot(Data$ln_price_1 ~ regions,
-    xlab = "Regions", ylab = "Logarithm of first sales price"
+    xlab = "Regions", ylab = "Logarithm of first sales price",
+    col = c("#00CEF6")
 )
 boxplot(Data$ln_price_2 ~ regions,
-    xlab = "Regions", ylab = "Logarithm of second sales price"
+    xlab = "Regions", ylab = "Logarithm of second sales price",
+    col = c("#3C78D8")
 )
 
 # relation of regions and time between sale
@@ -218,14 +211,18 @@ par(mfrow = c(1, 2))
 barplot(
     tapply(Data$days_between_sale, regions, mean),
     beside = TRUE,
-    names.arg = gsub("_", " ", substring(colnames(Data)[35:43], 5)),
+    names.arg = gsub("_", " ", substring(colnames(Data)[36:44], 5)),
     xlab = "Regions",
+    col = c("#00CEF6", "#3C78D8"),
+    cex.axis = 0.65,
     ylab = "Mean of days between sale"
 )
 
 boxplot(Data$days_between_sale ~ regions,
-    xlab = "Regions", ylab = "Mean of days between sale"
+    xlab = "Regions", ylab = "Mean of days between sale",
+    col = c("#00CEF6")
 )
+
 
 # Continuous OLS
 epc_price1_cont <- lm(ln_price_1 ~ ln_epc_100 +
@@ -257,8 +254,8 @@ print(summary(epc_price2_cont))
 epc_price1_cont$coefficients[is.na(epc_price1_cont$coefficients)] <- 0
 epc_price2_cont$coefficients[is.na(epc_price2_cont$coefficients)] <- 0
 
-hedonic_price1_cont <- abs(epc_price1_cont$coefficients)
-hedonic_price2_cont <- abs(epc_price2_cont$coefficients)
+hedonic_price1_cont <- epc_price1_cont$coefficients
+hedonic_price2_cont <- epc_price2_cont$coefficients
 
 # confidence intervals for model coefficients
 confint(epc_price1_cont, conf.level = 0.95)
@@ -270,15 +267,15 @@ plot(1:18, hedonic_price1_cont[-1],
     axes = F,
     ylab = "",
     xlab = "",
-    ylim = c(-0.06, 0.5)
+    ylim = c(-0.4, 0.5)
 )
-lines(1:18, hedonic_price1_cont[-1], type = "o", col = "blue")
-lines(1:18, hedonic_price2_cont[-1], type = "o", col = "green")
+lines(1:18, hedonic_price1_cont[-1], type = "o", col = "#3C78D8")
+lines(1:18, hedonic_price2_cont[-1], type = "o", col = "#8EC400")
 axis(2)
 axis(1,
     at = 1:18,
     labels = gsub("_", "\n", names(hedonic_price1_cont)[-1]),
-    padj = 1, pos = -0.04
+    padj = 1, pos = -0.35
 )
 title(
     main = "Coefficients in OLS(continuous) estimations",
@@ -301,17 +298,17 @@ termplot(epc_price2_cont,
 
 # Repeat sales index
 rsi <- read.csv("RSI.csv")
-index <- lm(log_change ~ 0 + Y1995 + Y1996 + Y1997 + Y1998 + Y1999 +
+index <- lm(log_change ~ 0 + Y1996 + Y1997 + Y1998 + Y1999 +
     Y2000 + Y2001 + Y2002 + Y2003 + Y2004 + Y2005 + Y2006 + Y2007 + Y2008
     + Y2009 + Y2010 + Y2011 + Y2012, data = rsi)
 windows()
 rs_index <- exp(coef(index))
 rs_index[is.na(rs_index)] <- 1
-plot(rs_index, type = "o", axes = F, xlab = "", ylab = "", col = "blue")
+plot(rs_index, type = "o", axes = F, xlab = "", ylab = "", col = "#3C78D8")
 axis(2)
 axis(1,
-    at = 1:18,
-    labels = gsub("Y", "", colnames(rsi)[3:20]),
+    at = 1:17,
+    labels = gsub("Y", "", colnames(rsi)[4:20]),
     padj = 1
 )
 title(
@@ -319,3 +316,30 @@ title(
     ylab = "Index",
     xlab = "Year"
 )
+library(MASS)
+# hedonic regression of time
+windows()
+boxcox(days_between_sale ~ epc_rating_a + epc_rating_b +
+    epc_rating_c + epc_rating_d +
+    epc_rating_e + epc_rating_f + epc_rating_g +
+    imd_level + income_level +
+    emp_level + educ_level +
+    health_level + crime_level +
+    barrier_level + living_level +
+    reg_north_east + reg_north_west +
+    reg_yorkshire_and_the_humber + reg_east_midlands +
+    reg_west_midlands + reg_east_of_england +
+    reg_london + reg_south_east + reg_south_west, data = Data)
+
+epc_time <- lm(trans_time ~ epc_rating_a + epc_rating_b +
+    epc_rating_c + epc_rating_d +
+    epc_rating_e + epc_rating_f + epc_rating_g +
+    imd_level + income_level +
+    emp_level + educ_level +
+    health_level + crime_level +
+    barrier_level + living_level +
+    reg_north_east + reg_north_west +
+    reg_yorkshire_and_the_humber + reg_east_midlands +
+    reg_west_midlands + reg_east_of_england +
+    reg_london + reg_south_east + reg_south_west, data = Data)
+print(summary(epc_time))
