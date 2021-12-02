@@ -330,4 +330,16 @@ boxcox(days_between_sale ~ epc_rating_a + epc_rating_b +
     reg_yorkshire_and_the_humber + reg_east_midlands +
     reg_west_midlands + reg_east_of_england +
     reg_london + reg_south_east + reg_south_west, data = Data)
+
+epc_time <- lm(trans_time ~ epc_rating_a + epc_rating_b +
+    epc_rating_c + epc_rating_d +
+    epc_rating_e + epc_rating_f + epc_rating_g +
+    imd_level + income_level +
+    emp_level + educ_level +
+    health_level + crime_level +
+    barrier_level + living_level +
+    reg_north_east + reg_north_west +
+    reg_yorkshire_and_the_humber + reg_east_midlands +
+    reg_west_midlands + reg_east_of_england +
+    reg_london + reg_south_east + reg_south_west, data = Data)
 print(summary(epc_time))
