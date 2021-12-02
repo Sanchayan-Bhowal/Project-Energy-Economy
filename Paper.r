@@ -114,10 +114,8 @@ title(
 # Residuals vs Leverage
 for (i in 1:6) {
     windows()
+    par(mfrow = c(1, 2))
     plot(epc_price1, which = c(i), col = blues9)
-}
-for (i in 1:6) {
-    windows()
     plot(epc_price2, which = c(i), col = blues9)
 }
 
@@ -149,19 +147,6 @@ boxplot(Data$days_between_sale ~ epc_rating,
     xlab = "EPC rating", ylab = "Days between sale", col = c("#00CEF6")
 )
 
-# hedonic regression of time
-epc_time <- lm(days_between_sale ~ epc_rating_a + epc_rating_b +
-    epc_rating_c + epc_rating_d +
-    epc_rating_e + epc_rating_f + epc_rating_g +
-    imd_level + income_level +
-    emp_level + educ_level +
-    health_level + crime_level +
-    barrier_level + living_level +
-    reg_north_east + reg_north_west +
-    reg_yorkshire_and_the_humber + reg_east_midlands +
-    reg_west_midlands + reg_east_of_england +
-    reg_london + reg_south_east + reg_south_west, data = Data)
-print(summary(epc_time))
 sink()
 
 # relation of region and rating
@@ -331,3 +316,18 @@ title(
     ylab = "Index",
     xlab = "Year"
 )
+library(MASS)
+# hedonic regression of time
+windows()
+boxcox(days_between_sale ~ epc_rating_a + epc_rating_b +
+    epc_rating_c + epc_rating_d +
+    epc_rating_e + epc_rating_f + epc_rating_g +
+    imd_level + income_level +
+    emp_level + educ_level +
+    health_level + crime_level +
+    barrier_level + living_level +
+    reg_north_east + reg_north_west +
+    reg_yorkshire_and_the_humber + reg_east_midlands +
+    reg_west_midlands + reg_east_of_england +
+    reg_london + reg_south_east + reg_south_west, data = Data)
+print(summary(epc_time))
