@@ -94,7 +94,7 @@ hist(data$imd_score,
 )
 barplot(table(data$imd_level) / 4201,
     xlab = "imd_level",
-    col = topo.colors(10),
+    col = blues9,
     main = "Index of Multiple deprivation(IMD) decile"
 )
 
@@ -104,7 +104,7 @@ hist(data$barrier_score,
 )
 barplot(table(data$barrier_level) / 4201,
     xlab = "barrier_level",
-    col = topo.colors(10),
+    col = blues9,
     main = "Barriers to housing and service decile"
 )
 
@@ -114,7 +114,7 @@ hist(data$crime_score,
 )
 barplot(table(data$crime_level) / 4201,
     xlab = "crime_level",
-    col = topo.colors(10),
+    col = blues9,
     main = "Crime decile"
 )
 
@@ -127,7 +127,7 @@ hist(data$educ_score,
 )
 barplot(table(data$educ_level) / 4201,
     xlab = "educ_level",
-    col = topo.colors(10),
+    col = blues9,
     main = "Education skills and training deprivation decile"
 )
 
@@ -137,7 +137,7 @@ hist(data$emp_score,
 )
 barplot(table(data$emp_level) / 4201,
     xlab = "emp_level",
-    col = topo.colors(10),
+    col = blues9,
     main = "Employment deprivation decile"
 )
 
@@ -147,7 +147,7 @@ hist(data$health_score,
 )
 barplot(table(data$health_level) / 4201,
     xlab = "health_level",
-    col = topo.colors(10),
+    col = blues9,
     main = "Health deprivation and disability level"
 )
 
@@ -159,7 +159,7 @@ hist(data$income_score,
 )
 barplot(table(data$income_level) / 4201,
     xlab = "income_level",
-    col = topo.colors(10),
+    col = blues9,
     main = "Income deprivation decile"
 )
 
@@ -169,7 +169,7 @@ hist(data$living_score,
 )
 barplot(table(data$living_level) / 4201,
     xlab = "living_level",
-    col = topo.colors(10),
+    col = blues9,
     main = "Living environment deprivation decile"
 )
 
