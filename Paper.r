@@ -164,10 +164,10 @@ barplot(
         tapply(Data$reg_south_west, epc_rating, sum)
     ) / 4201),
     ylim = c(0, 0.2),
-    names.arg = gsub("_", " ", substring(colnames(Data)[35:43], 5)),
+    names.arg = gsub("_", " ", substring(colnames(Data)[36:44], 5)),
     col = rev(blues9),
     xlab = "Regions",
-    ylab = "Sum of EPC rating"
+    ylab = "Frequency"
 )
 
 regions <- Data$reg_north_east +
@@ -188,7 +188,7 @@ barplot(
         tapply(Data$ln_price_2, regions, mean)
     ),
     beside = TRUE, ylim = c(0, 14),
-    names.arg = gsub("_", " ", substring(colnames(Data)[35:43], 5)),
+    names.arg = gsub("_", " ", substring(colnames(Data)[36:44], 5)),
     xlab = "Regions",
     col = c("#00CEF6", "#3C78D8"),
     ylab = "Mean of logarithm of sales price"
@@ -211,7 +211,7 @@ par(mfrow = c(1, 2))
 barplot(
     tapply(Data$days_between_sale, regions, mean),
     beside = TRUE,
-    names.arg = gsub("_", "\n", substring(colnames(Data)[35:43], 5)),
+    names.arg = gsub("_", " ", substring(colnames(Data)[36:44], 5)),
     xlab = "Regions",
     col = c("#00CEF6", "#3C78D8"),
     cex.axis = 0.65,
