@@ -40,21 +40,21 @@ boxplot(Data$ln_price_2 ~ epc_rating, ylab = "ln_price_2", col = c("#3C78D8"))
 
 # hedonic regression of prices
 epc_price1 <- lm(ln_price_1 ~ epc_rating_b +
-    epc_rating_c + epc_rating_g +
-    epc_rating_e + epc_rating_f +
-    reg_north_east + reg_south_west +
+    epc_rating_c + epc_rating_e +
+    epc_rating_f + epc_rating_g +
+    reg_north_east +
     reg_yorkshire_and_the_humber + reg_east_midlands +
     reg_west_midlands + reg_east_of_england +
-    reg_london + reg_south_east, data = Data)
+    reg_london + reg_south_east + reg_south_west, data = Data)
 
 
 epc_price2 <- lm(ln_price_2 ~ epc_rating_b +
-    epc_rating_c + epc_rating_g +
-    epc_rating_e + epc_rating_f +
-    reg_north_east + reg_south_west +
+    epc_rating_c + epc_rating_e +
+    epc_rating_f + epc_rating_g +
+    reg_north_east +
     reg_yorkshire_and_the_humber + reg_east_midlands +
     reg_west_midlands + reg_east_of_england +
-    reg_london + reg_south_east, data = Data)
+    reg_london + reg_south_east + reg_south_west, data = Data)
 
 
 options(scipen = 999)
@@ -220,10 +220,9 @@ epc_price1_cont <- lm(ln_price_1 ~ ln_epc_100 +
     emp_score + educ_score +
     health_score + crime_score +
     barrier_score + living_score +
-    reg_north_east + reg_south_west +
-    reg_yorkshire_and_the_humber + reg_east_midlands +
-    reg_west_midlands + reg_east_of_england +
-    reg_london + reg_south_east, data = Data)
+    reg_north_east + reg_yorkshire_and_the_humber +
+    reg_east_midlands + reg_west_midlands + reg_east_of_england +
+    reg_london + reg_south_east + reg_south_west, data = Data)
 
 
 sink("OLS(continuous).txt")
@@ -234,10 +233,9 @@ epc_price2_cont <- lm(ln_price_2 ~ ln_epc_100 +
     emp_score + educ_score +
     health_score + crime_score +
     barrier_score + living_score +
-    reg_north_east + reg_south_west +
-    reg_yorkshire_and_the_humber + reg_east_midlands +
-    reg_west_midlands + reg_east_of_england +
-    reg_london + reg_south_east, data = Data)
+    reg_north_east + reg_yorkshire_and_the_humber +
+    reg_east_midlands + reg_west_midlands + reg_east_of_england +
+    reg_london + reg_south_east + reg_south_west, data = Data)
 
 print(summary(epc_price2_cont))
 
@@ -311,18 +309,18 @@ boxcox(days_between_sale ~ ln_epc_100 +
     emp_score + educ_score +
     health_score + crime_score +
     barrier_score + living_score +
-    reg_north_east + reg_south_west +
-    reg_yorkshire_and_the_humber + reg_east_midlands +
-    reg_west_midlands + reg_east_of_england +
-    reg_london + reg_south_east, data = Data)
+    reg_north_east + reg_yorkshire_and_the_humber +
+    reg_east_midlands + reg_west_midlands +
+    reg_east_of_england + reg_london +
+    reg_south_east + reg_south_west, data = Data)
 
 epc_time <- lm(trans_time ~ ln_epc_100 +
     imd_score + income_score +
     emp_score + educ_score +
     health_score + crime_score +
     barrier_score + living_score +
-    reg_north_east + reg_south_west +
-    reg_yorkshire_and_the_humber + reg_east_midlands +
-    reg_west_midlands + reg_east_of_england +
-    reg_london + reg_south_east, data = Data)
+    reg_north_east + reg_yorkshire_and_the_humber +
+    reg_east_midlands + reg_west_midlands +
+    reg_east_of_england + reg_london +
+    reg_south_east + reg_south_west, data = Data)
 print(summary(epc_time))
