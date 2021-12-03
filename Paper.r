@@ -113,13 +113,13 @@ for (i in 1:6) {
 windows()
 par(mfrow = c(4, 4))
 termplot(epc_price1,
-    partial.resid = TRUE, col.res = "purple", smooth = panel.smooth
+    partial.resid = TRUE, col.res = blues9, smooth = panel.smooth
 )
 
 windows()
 par(mfrow = c(4, 4))
 termplot(epc_price2,
-    partial.resid = TRUE, col.res = "purple", smooth = panel.smooth
+    partial.resid = TRUE, col.res = blues9, smooth = panel.smooth
 )
 
 
@@ -215,28 +215,31 @@ boxplot(Data$days_between_sale ~ regions,
 
 
 # Continuous OLS
-epc_price1_cont <- lm(ln_price_1 ~ ln_epc_100 +
-    imd_score + income_score +
+library(MASS)
+windows()
+
+price1_bc <- boxcox(price_1 ~ imd_score + income_score +
     emp_score + educ_score +
     health_score + crime_score +
-    barrier_score + living_score +
-    reg_north_east + reg_yorkshire_and_the_humber +
-    reg_east_midlands + reg_west_midlands + reg_east_of_england +
-    reg_london + reg_south_east + reg_south_west, data = Data)
+    barrier_score + living_score, data = Data)
 
+epc_price1_cont <- lm(ln_price_1 ~ imd_score + income_score +
+    emp_score + educ_score +
+    health_score + crime_score +
+    barrier_score + living_score, data = Data)
+
+price2_bc <- boxcox(price_2 ~ imd_score + income_score +
+    emp_score + educ_score +
+    health_score + crime_score +
+    barrier_score + living_score, data = Data)
+
+epc_price2_cont <- lm(t_price_2 ~ imd_score + income_score +
+    emp_score + educ_score +
+    health_score + crime_score +
+    barrier_score + living_score, data = Data)
 
 sink("OLS(continuous).txt")
 print(summary(epc_price1_cont))
-
-epc_price2_cont <- lm(ln_price_2 ~ ln_epc_100 +
-    imd_score + income_score +
-    emp_score + educ_score +
-    health_score + crime_score +
-    barrier_score + living_score +
-    reg_north_east + reg_yorkshire_and_the_humber +
-    reg_east_midlands + reg_west_midlands + reg_east_of_england +
-    reg_london + reg_south_east + reg_south_west, data = Data)
-
 print(summary(epc_price2_cont))
 
 hedonic_price1_cont <- epc_price1_cont$coefficients
@@ -247,20 +250,19 @@ confint(epc_price1_cont, conf.level = 0.95)
 confint(epc_price2_cont, conf.level = 0.95)
 
 windows()
-plot(1:17, hedonic_price1_cont[-1],
+plot(1:8, hedonic_price1_cont[-1],
     type = "n",
     axes = F,
     ylab = "",
     xlab = "",
-    ylim = c(-0.4, 0.5)
 )
-lines(1:17, hedonic_price1_cont[-1], type = "o", col = "#3C78D8")
-lines(1:17, hedonic_price2_cont[-1], type = "o", col = "#8EC400")
+lines(1:8, hedonic_price1_cont[-1], type = "o", col = "#3C78D8")
+lines(1:8, hedonic_price2_cont[-1], type = "o", col = "#8EC400")
 axis(2)
 axis(1,
-    at = 1:17,
+    at = 1:8,
     labels = gsub("_", "\n", names(hedonic_price1_cont)[-1]),
-    padj = 1, pos = -0.35
+    padj = 1, pos = -0.00007
 )
 title(
     main = "Coefficients in OLS(continuous) estimations",
@@ -270,15 +272,15 @@ title(
 sink()
 
 windows()
-par(mfrow = c(4, 5))
+par(mfrow = c(2, 4))
 termplot(epc_price1_cont,
-    partial.resid = TRUE, col.res = "purple", smooth = panel.smooth
+    partial.resid = TRUE, col.res = blues9, smooth = panel.smooth
 )
 
 windows()
-par(mfrow = c(4, 5))
+par(mfrow = c(2, 4))
 termplot(epc_price2_cont,
-    partial.resid = TRUE, col.res = "purple", smooth = panel.smooth
+    partial.resid = TRUE, col.res = blues9, smooth = panel.smooth
 )
 
 # Repeat sales index
@@ -300,27 +302,3 @@ title(
     ylab = "Index",
     xlab = "Year"
 )
-
-library(MASS)
-# hedonic regression of time
-windows()
-boxcox(days_between_sale ~ ln_epc_100 +
-    imd_score + income_score +
-    emp_score + educ_score +
-    health_score + crime_score +
-    barrier_score + living_score +
-    reg_north_east + reg_yorkshire_and_the_humber +
-    reg_east_midlands + reg_west_midlands +
-    reg_east_of_england + reg_london +
-    reg_south_east + reg_south_west, data = Data)
-
-epc_time <- lm(trans_time ~ ln_epc_100 +
-    imd_score + income_score +
-    emp_score + educ_score +
-    health_score + crime_score +
-    barrier_score + living_score +
-    reg_north_east + reg_yorkshire_and_the_humber +
-    reg_east_midlands + reg_west_midlands +
-    reg_east_of_england + reg_london +
-    reg_south_east + reg_south_west, data = Data)
-print(summary(epc_time))
