@@ -1,5 +1,5 @@
 # Reproduction of page 7,8 in data paper
-data <- read.csv("data.csv")
+data <- read.csv("Data.csv")
 library(timeDate)
 library(DescTools)
 describe <- function(variable) {

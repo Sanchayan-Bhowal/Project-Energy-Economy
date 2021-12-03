@@ -39,30 +39,22 @@ boxplot(Data$ln_price_2 ~ epc_rating, ylab = "ln_price_2", col = c("#3C78D8"))
 
 
 # hedonic regression of prices
-epc_price1 <- lm(ln_price_1 ~ epc_rating_a + epc_rating_b +
+epc_price1 <- lm(ln_price_1 ~ epc_rating_b +
     epc_rating_c + epc_rating_d +
-    epc_rating_e + epc_rating_f + epc_rating_g +
-    imd_level + income_level +
-    emp_level + educ_level +
-    health_level + crime_level +
-    barrier_level + living_level +
+    epc_rating_e + epc_rating_f +
     reg_north_east + reg_north_west +
     reg_yorkshire_and_the_humber + reg_east_midlands +
     reg_west_midlands + reg_east_of_england +
-    reg_london + reg_south_east + reg_south_west, data = Data)
+    reg_london + reg_south_east, data = Data)
 
 
-epc_price2 <- lm(ln_price_2 ~ epc_rating_a + epc_rating_b +
+epc_price2 <- lm(ln_price_2 ~ epc_rating_b +
     epc_rating_c + epc_rating_d +
-    epc_rating_e + epc_rating_f + epc_rating_g +
-    imd_level + income_level +
-    emp_level + educ_level +
-    health_level + crime_level +
-    barrier_level + living_level +
+    epc_rating_e + epc_rating_f +
     reg_north_east + reg_north_west +
     reg_yorkshire_and_the_humber + reg_east_midlands +
     reg_west_midlands + reg_east_of_england +
-    reg_london + reg_south_east + reg_south_west, data = Data)
+    reg_london + reg_south_east, data = Data)
 
 
 options(scipen = 999)
@@ -72,8 +64,6 @@ print(summary(epc_price2))
 # Summary shows the statistically significant variables of of ln_price
 # Positivity of coefficients imply positive associativity
 
-epc_price1$coefficients[is.na(epc_price1$coefficients)] <- 0
-epc_price2$coefficients[is.na(epc_price2$coefficients)] <- 0
 
 hedonic_price1 <- exp(epc_price1$coefficients) # hedonic price index1
 hedonic_price2 <- exp(epc_price2$coefficients) # hedonic price index2
@@ -84,19 +74,19 @@ confint(epc_price2, conf.level = 0.95)
 
 
 windows()
-plot(1:24, hedonic_price1[-1],
+plot(1:13, hedonic_price1[-1],
     type = "n",
     axes = F,
     ylab = "",
     xlab = "",
-    ylim = c(0.7, 1.9)
+    ylim = c(0.7, 2.1)
 )
 
-lines(1:24, hedonic_price1[-1], type = "o", col = "#3C78D8")
-lines(1:24, hedonic_price2[-1], type = "o", col = "#8EC400")
+lines(1:13, hedonic_price1[-1], type = "o", col = "#3C78D8")
+lines(1:13, hedonic_price2[-1], type = "o", col = "#8EC400")
 axis(2)
 axis(1,
-    at = 1:24,
+    at = 1:13,
     labels = gsub("_", "\n", names(hedonic_price1)[-1]),
     padj = 1, pos = 0.7, cex.axis = 0.65
 )
@@ -121,13 +111,13 @@ for (i in 1:6) {
 
 # Partial Residue plots
 windows()
-par(mfrow = c(4, 6))
+par(mfrow = c(4, 4))
 termplot(epc_price1,
     partial.resid = TRUE, col.res = "purple", smooth = panel.smooth
 )
 
 windows()
-par(mfrow = c(4, 6))
+par(mfrow = c(4, 4))
 termplot(epc_price2,
     partial.resid = TRUE, col.res = "purple", smooth = panel.smooth
 )
@@ -233,7 +223,7 @@ epc_price1_cont <- lm(ln_price_1 ~ ln_epc_100 +
     reg_north_east + reg_north_west +
     reg_yorkshire_and_the_humber + reg_east_midlands +
     reg_west_midlands + reg_east_of_england +
-    reg_london + reg_south_east + reg_south_west, data = Data)
+    reg_london + reg_south_east, data = Data)
 
 
 sink("OLS(continuous).txt")
@@ -247,12 +237,9 @@ epc_price2_cont <- lm(ln_price_2 ~ ln_epc_100 +
     reg_north_east + reg_north_west +
     reg_yorkshire_and_the_humber + reg_east_midlands +
     reg_west_midlands + reg_east_of_england +
-    reg_london + reg_south_east + reg_south_west, data = Data)
+    reg_london + reg_south_east, data = Data)
 
 print(summary(epc_price2_cont))
-
-epc_price1_cont$coefficients[is.na(epc_price1_cont$coefficients)] <- 0
-epc_price2_cont$coefficients[is.na(epc_price2_cont$coefficients)] <- 0
 
 hedonic_price1_cont <- epc_price1_cont$coefficients
 hedonic_price2_cont <- epc_price2_cont$coefficients
@@ -262,18 +249,18 @@ confint(epc_price1_cont, conf.level = 0.95)
 confint(epc_price2_cont, conf.level = 0.95)
 
 windows()
-plot(1:18, hedonic_price1_cont[-1],
+plot(1:17, hedonic_price1_cont[-1],
     type = "n",
     axes = F,
     ylab = "",
     xlab = "",
     ylim = c(-0.4, 0.5)
 )
-lines(1:18, hedonic_price1_cont[-1], type = "o", col = "#3C78D8")
-lines(1:18, hedonic_price2_cont[-1], type = "o", col = "#8EC400")
+lines(1:17, hedonic_price1_cont[-1], type = "o", col = "#3C78D8")
+lines(1:17, hedonic_price2_cont[-1], type = "o", col = "#8EC400")
 axis(2)
 axis(1,
-    at = 1:18,
+    at = 1:17,
     labels = gsub("_", "\n", names(hedonic_price1_cont)[-1]),
     padj = 1, pos = -0.35
 )
@@ -303,7 +290,6 @@ index <- lm(log_change ~ 0 + Y1996 + Y1997 + Y1998 + Y1999 +
     + Y2009 + Y2010 + Y2011 + Y2012, data = rsi)
 windows()
 rs_index <- exp(coef(index))
-rs_index[is.na(rs_index)] <- 1
 plot(rs_index, type = "o", axes = F, xlab = "", ylab = "", col = "#3C78D8")
 axis(2)
 axis(1,
@@ -316,30 +302,27 @@ title(
     ylab = "Index",
     xlab = "Year"
 )
+
 library(MASS)
 # hedonic regression of time
 windows()
-boxcox(days_between_sale ~ epc_rating_a + epc_rating_b +
-    epc_rating_c + epc_rating_d +
-    epc_rating_e + epc_rating_f + epc_rating_g +
-    imd_level + income_level +
-    emp_level + educ_level +
-    health_level + crime_level +
-    barrier_level + living_level +
+boxcox(days_between_sale ~ ln_epc_100 +
+    imd_score + income_score +
+    emp_score + educ_score +
+    health_score + crime_score +
+    barrier_score + living_score +
     reg_north_east + reg_north_west +
     reg_yorkshire_and_the_humber + reg_east_midlands +
     reg_west_midlands + reg_east_of_england +
-    reg_london + reg_south_east + reg_south_west, data = Data)
+    reg_london + reg_south_east, data = Data)
 
-epc_time <- lm(trans_time ~ epc_rating_a + epc_rating_b +
-    epc_rating_c + epc_rating_d +
-    epc_rating_e + epc_rating_f + epc_rating_g +
-    imd_level + income_level +
-    emp_level + educ_level +
-    health_level + crime_level +
-    barrier_level + living_level +
+epc_time <- lm(trans_time ~ ln_epc_100 +
+    imd_score + income_score +
+    emp_score + educ_score +
+    health_score + crime_score +
+    barrier_score + living_score +
     reg_north_east + reg_north_west +
     reg_yorkshire_and_the_humber + reg_east_midlands +
     reg_west_midlands + reg_east_of_england +
-    reg_london + reg_south_east + reg_south_west, data = Data)
+    reg_london + reg_south_east, data = Data)
 print(summary(epc_time))
