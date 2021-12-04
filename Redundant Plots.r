@@ -127,6 +127,21 @@ termplot(epc_price2,
     partial.resid = TRUE, col.res = blues9, smooth = panel.smooth
 )
 
+
+# relation of rating and time between sale
+windows()
+par(mfrow = c(1, 2))
+barplot(
+    tapply(Data$days_between_sale, epc_rating, mean),
+    beside = TRUE,
+    names.arg = c("B", "C", "D", "E", "F", "G"),
+    col = c("#00CEF6", "#3C78D8"),
+    xlab = "EPC rating", ylab = "Mean days between sale"
+)
+boxplot(Data$days_between_sale ~ epc_rating,
+    xlab = "EPC rating", ylab = "Days between sale", col = c("#00CEF6")
+)
+
 sink()
 
 # relation of region and rating
@@ -148,14 +163,6 @@ barplot(
     col = rev(blues9),
     xlab = "Regions",
     ylab = "Frequency"
-)
-legend("topright", c(
-    "North East", "North West", "Yorkshire and the Humber",
-    "East Midlands", "West Midlands", "East of England", "London",
-    "South East", "South West"
-),
-fill = rev(blues9),
-bty = "n"
 )
 
 regions <- Data$reg_north_east +
@@ -181,10 +188,6 @@ barplot(
     col = c("#00CEF6", "#3C78D8"),
     ylab = "Mean of logarithm of sales price"
 )
-legend("topright", c("Price index 1", "Price index 2"),
-    fill = c("#00CEF6", "#3C78D8"),
-    bty = "n"
-)
 
 windows()
 par(mfrow = c(1, 2))
@@ -196,6 +199,25 @@ boxplot(Data$ln_price_2 ~ regions,
     xlab = "Regions", ylab = "Logarithm of second sales price",
     col = c("#3C78D8")
 )
+
+# relation of regions and time between sale
+windows()
+par(mfrow = c(1, 2))
+barplot(
+    tapply(Data$days_between_sale, regions, mean),
+    beside = TRUE,
+    names.arg = gsub("_", " ", substring(colnames(Data)[36:44], 5)),
+    xlab = "Regions",
+    col = c("#00CEF6", "#3C78D8"),
+    cex.axis = 0.65,
+    ylab = "Mean of days between sale"
+)
+
+boxplot(Data$days_between_sale ~ regions,
+    xlab = "Regions", ylab = "Mean of days between sale",
+    col = c("#00CEF6")
+)
+
 
 # Continuous OLS
 library(MASS)
@@ -225,10 +247,33 @@ sink("OLS(continuous).txt")
 print(summary(epc_price1_cont))
 print(summary(epc_price2_cont))
 
+hedonic_price1_cont <- epc_price1_cont$coefficients
+hedonic_price2_cont <- epc_price2_cont$coefficients
+
 # confidence intervals for model coefficients
 confint(epc_price1_cont, conf.level = 0.95)
 confint(epc_price2_cont, conf.level = 0.95)
 
+windows()
+plot(1:8, hedonic_price1_cont[-1],
+    type = "n",
+    axes = F,
+    ylab = "",
+    xlab = "",
+)
+lines(1:8, hedonic_price1_cont[-1], type = "o", col = "#3C78D8")
+lines(1:8, hedonic_price2_cont[-1], type = "o", col = "#8EC400")
+axis(2)
+axis(1,
+    at = 1:8,
+    labels = gsub("_", "\n", names(hedonic_price1_cont)[-1]),
+    padj = 1, pos = -0.00007
+)
+title(
+    main = "Coefficients in OLS(continuous) estimations",
+    ylab = "Coefficients",
+    xlab = "Variables"
+)
 sink()
 
 windows()
