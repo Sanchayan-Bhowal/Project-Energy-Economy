@@ -84,7 +84,7 @@ plot(1:13, hedonic_price1[-1],
     axes = F,
     ylab = "",
     xlab = "",
-    ylim = c(0.7, 2.1)
+    ylim = c(0.5, 2.7)
 )
 
 lines(1:13, hedonic_price1[-1], type = "o", col = "#3C78D8")
@@ -93,7 +93,11 @@ axis(2)
 axis(1,
     at = 1:13,
     labels = gsub("_", "\n", names(hedonic_price1)[-1]),
-    padj = 1, pos = 0.7, cex.axis = 0.65
+    padj = 1, pos = 0.6, cex.axis = 0.65
+)
+legend("topleft", c("EPC index price 1", "EPC index price 2"),
+    fill = c("#3C78D8", "#8EC400"),
+    bty = "n"
 )
 title(
     main = "Coefficients in OLS(band) estimations",
@@ -230,6 +234,32 @@ confint(epc_price1_cont, conf.level = 0.95)
 confint(epc_price2_cont, conf.level = 0.95)
 
 sink()
+
+windows()
+par(mfrow = c(1, 2))
+hist(Data$ln_price_1,
+    freq = F, breaks = 30,
+    xlim = range(c(8, 16)), col = "#00CEF6",
+    main = "Transformed first transaction price"
+)
+hist(Data$t_price_2,
+    freq = F, breaks = 30,
+    col = "#3C78D8",
+    main = "Transformed second transaction price"
+)
+
+windows()
+par(mfrow = c(1, 2))
+hist(Data$price_1,
+    freq = F, breaks = 30,
+    col = "#00CEF6",
+    main = "First transaction price"
+)
+hist(Data$price_2,
+    freq = F, breaks = 30,
+    col = "#3C78D8",
+    main = "Second transaction price"
+)
 
 windows()
 par(mfrow = c(2, 4))
