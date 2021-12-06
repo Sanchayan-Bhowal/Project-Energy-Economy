@@ -118,19 +118,6 @@ for (i in 1:6) {
     plot(epc_price2, which = c(i), col = blues9)
 }
 
-# Partial Residue plots
-windows()
-par(mfrow = c(4, 4))
-termplot(epc_price1,
-    partial.resid = TRUE, col.res = blues9, smooth = panel.smooth
-)
-
-windows()
-par(mfrow = c(4, 4))
-termplot(epc_price2,
-    partial.resid = TRUE, col.res = blues9, smooth = panel.smooth
-)
-
 sink()
 
 # relation of region and rating
@@ -263,14 +250,17 @@ hist(Data$price_2,
 
 windows()
 par(mfrow = c(2, 4))
-termplot(epc_price1_cont,
-    partial.resid = TRUE, col.res = blues9, smooth = panel.smooth
+visreg(epc_price1_cont,
+    trans = exp, ylab = "Price 1", ylim = c(0, 300000), partial = TRUE
 )
 
+transp2 <- function(x) {
+    return((1 - 0.3030303 * x)^ (1 / -0.3030303))
+}
 windows()
 par(mfrow = c(2, 4))
-termplot(epc_price2_cont,
-    partial.resid = TRUE, col.res = blues9, smooth = panel.smooth
+visreg(epc_price2_cont,
+    trans = transp2, ylab = "Price 2", ylim = c(0, 300000), partial = TRUE
 )
 
 # Repeat sales index
