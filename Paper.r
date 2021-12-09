@@ -112,7 +112,6 @@ title(
 # sqrt(|standardized residual|) vs fitted values
 # Residuals vs Leverage
 for (i in 1:6) {
-    
     par(mfrow = c(1, 2))
     plot(epc_price1, which = c(i), col = blues9)
     plot(epc_price2, which = c(i), col = blues9)
