@@ -2,12 +2,11 @@ Data <- read.csv("Data.csv") # nolint
 
 # INDEX
 # Hedonic regression of prices (band)
-# relation of rating and time between sale
-# hedonic regression of time
 # relation of regions and house prices
 # relation of regions and time between sale
-# Hedonic regression of prices (continuous)
+# prices vs socio-economic variables 
 # Repeat sales index
+#correlation matrix plot
 
 
 # relation of rating and house prices
@@ -184,7 +183,7 @@ boxplot(Data$ln_price_2 ~ regions,
     col = c("#3C78D8")
 )
 
-# Continuous OLS
+# price vs socio-economic scores
 library(MASS)
 windows()
 
