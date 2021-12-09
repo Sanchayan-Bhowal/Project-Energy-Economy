@@ -18,7 +18,7 @@ epc_rating <- Data$epc_rating_a +
     5 * Data$epc_rating_e + 6 * Data$epc_rating_f + 7 * Data$epc_rating_g
 # epc_rating corresponds epc_rating, 1 for A, 2 for B ... 7 for G.
 
-
+windows()
 barplot(
     cbind(c(0, 0), rbind(
         tapply(Data$ln_price_1, epc_rating, mean),
@@ -36,7 +36,7 @@ legend("topleft", c("log price 1", "log price 2"),
     bty = "n"
 )
 
-
+windows()
 par(mfrow = c(1, 2))
 
 boxplot(Data$ln_price_1 ~ epc_rating, ylab = "ln_price_1", col = c("#00CEF6"))
@@ -78,7 +78,7 @@ confint(epc_price1, conf.level = 0.95)
 confint(epc_price2, conf.level = 0.95)
 
 
-
+windows()
 plot(1:13, hedonic_price1[-1],
     type = "n",
     axes = F,
@@ -112,28 +112,16 @@ title(
 # sqrt(|standardized residual|) vs fitted values
 # Residuals vs Leverage
 for (i in 1:6) {
+    windows()
     par(mfrow = c(1, 2))
     plot(epc_price1, which = c(i), col = blues9)
     plot(epc_price2, which = c(i), col = blues9)
 }
 
-# Partial Residue plots
-
-par(mfrow = c(4, 4))
-termplot(epc_price1,
-    partial.resid = TRUE, col.res = blues9, smooth = panel.smooth
-)
-
-
-par(mfrow = c(4, 4))
-termplot(epc_price2,
-    partial.resid = TRUE, col.res = blues9, smooth = panel.smooth
-)
-
 sink()
 
 # relation of region and rating
-
+windows()
 barplot(
     t(rbind(
         tapply(Data$reg_north_east, epc_rating, sum),
@@ -152,13 +140,9 @@ barplot(
     xlab = "Regions",
     ylab = "Frequency"
 )
-legend("topright", c(
-    "North East", "North West", "Yorkshire and the Humber",
-    "East Midlands", "West Midlands", "East of England", "London",
-    "South East", "South West"
-),
-fill = rev(blues9),
-bty = "n"
+legend("topright", c("A", "B", "C", "D", "E", "F", "G"),
+    fill = rev(blues9),
+    bty = "n"
 )
 
 regions <- Data$reg_north_east +
@@ -172,7 +156,7 @@ regions <- Data$reg_north_east +
     9 * Data$reg_south_west
 
 # relation of regions and house prices
-
+windows()
 barplot(
     rbind(
         tapply(Data$ln_price_1, regions, mean),
@@ -189,7 +173,7 @@ legend("topright", c("Price index 1", "Price index 2"),
     bty = "n"
 )
 
-
+windows()
 par(mfrow = c(1, 2))
 boxplot(Data$ln_price_1 ~ regions,
     xlab = "Regions", ylab = "Logarithm of first sales price",
@@ -202,7 +186,7 @@ boxplot(Data$ln_price_2 ~ regions,
 
 # Continuous OLS
 library(MASS)
-
+windows()
 
 price1_bc <- boxcox(price_1 ~ imd_score + income_score +
     emp_score + educ_score +
@@ -234,7 +218,7 @@ confint(epc_price2_cont, conf.level = 0.95)
 
 sink()
 
-
+windows()
 par(mfrow = c(1, 2))
 hist(Data$ln_price_1,
     freq = F, breaks = 30,
@@ -247,7 +231,7 @@ hist(Data$t_price_2,
     main = "Transformed second transaction price"
 )
 
-
+windows()
 par(mfrow = c(1, 2))
 hist(Data$price_1,
     freq = F, breaks = 30,
@@ -260,16 +244,20 @@ hist(Data$price_2,
     main = "Second transaction price"
 )
 
-
+library(visreg)
+windows()
 par(mfrow = c(2, 4))
-termplot(epc_price1_cont,
-    partial.resid = TRUE, col.res = blues9, smooth = panel.smooth
+visreg(epc_price1_cont,
+    trans = exp, ylab = "Price 1", ylim = c(0, 300000), partial = TRUE
 )
 
-
+transp2 <- function(x) {
+    return((1 - 0.3030303 * x)^ (1 / -0.3030303))
+}
+windows()
 par(mfrow = c(2, 4))
-termplot(epc_price2_cont,
-    partial.resid = TRUE, col.res = blues9, smooth = panel.smooth
+visreg(epc_price2_cont,
+    trans = transp2, ylab = "Price 2", ylim = c(0, 300000), partial = TRUE
 )
 
 # Repeat sales index
@@ -277,7 +265,7 @@ rsi <- read.csv("RSI.csv")
 index <- lm(log_change ~ 0 + Y1996 + Y1997 + Y1998 + Y1999 +
     Y2000 + Y2001 + Y2002 + Y2003 + Y2004 + Y2005 + Y2006 + Y2007 + Y2008
     + Y2009 + Y2010 + Y2011 + Y2012, data = rsi)
-
+windows()
 rs_index <- exp(coef(index))
 plot(rs_index, type = "o", axes = F, xlab = "", ylab = "", col = "#3C78D8")
 axis(2)
@@ -291,3 +279,15 @@ title(
     ylab = "Index",
     xlab = "Year"
 )
+
+# correlation matrix plot
+
+small_data <- data.frame(
+    Data$imd_score, Data$income_score,
+    Data$emp_score, Data$educ_score, Data$health_score,
+    Data$crime_score, Data$barrier_score, Data$living_score
+)
+
+library(GGally)
+windows()
+ggcorr(small_data, method = c("everything", "pearson"))
