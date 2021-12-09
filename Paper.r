@@ -140,13 +140,9 @@ barplot(
     xlab = "Regions",
     ylab = "Frequency"
 )
-legend("topright", c(
-    "North East", "North West", "Yorkshire and the Humber",
-    "East Midlands", "West Midlands", "East of England", "London",
-    "South East", "South West"
-),
-fill = rev(blues9),
-bty = "n"
+legend("topright", c("A", "B", "C", "D", "E", "F", "G"),
+    fill = rev(blues9),
+    bty = "n"
 )
 
 regions <- Data$reg_north_east +
@@ -248,6 +244,7 @@ hist(Data$price_2,
     main = "Second transaction price"
 )
 
+library(visreg)
 windows()
 par(mfrow = c(2, 4))
 visreg(epc_price1_cont,
@@ -282,3 +279,15 @@ title(
     ylab = "Index",
     xlab = "Year"
 )
+
+# correlation matrix plot
+
+small_data <- data.frame(
+    Data$imd_score, Data$income_score,
+    Data$emp_score, Data$educ_score, Data$health_score,
+    Data$crime_score, Data$barrier_score, Data$living_score
+)
+
+library(GGally)
+windows()
+ggcorr(small_data, method = c("everything", "pearson"))
