@@ -28,23 +28,29 @@ result <- rbind(
 
 print(result)
 
+border <- "#092f4e"
+fill <- "#204c71"
 
 windows()
 par(mfrow = c(2, 2))
+ggplot(data = data, aes(ln_price_1)) + geom_histogram(aes(y = ..count../sum(..count..)), binwidth = 0.18, col = border, fill = fill) + ylab("Fraction") + ggtitle("Natural logarithm of first transaction price")
 hist(data$ln_price_1,
     freq = F, breaks = 30,
     xlim = range(c(8, 16)), col = "#3C78D8",
     main = "Natural logarithm of first transaction price"
 )
+ggplot(data = data, aes(ln_price_2)) + geom_histogram(aes(y = ..count../sum(..count..)), binwidth = 0.18, col = border, fill = fill) + ylab("Fraction") + ggtitle("Natural logarithm of second transaction price")
 hist(data$ln_price_2,
     freq = F, breaks = 30,
     xlim = range(c(10, 16)), col = "#3C78D8",
     main = "Natural logarithm of second transaction price"
 )
+ggplot(data = data, aes(perc_change_p2_to_p1)) + geom_histogram(aes(y = ..count../sum(..count..)), binwidth = 0.3, col = border, fill = fill) + ylab("Fraction") + ggtitle("Percentual price change between transactions")
 hist(data$perc_change_p2_to_p1,
     freq = F, breaks = 30, col = "#3C78D8",
     main = "Percentual price change between transactions"
 )
+ggplot(data = data, aes(days_between_sale)) + geom_histogram(aes(y = ..count../sum(..count..)), bins = 35, col = border, fill = fill) + ylab("Fraction") + ggtitle("Period of time between both transactions")
 hist(data$days_between_sale,
     freq = F, breaks = 35, col = "#3C78D8",
     main = "Period of time between both transactions"
