@@ -4,9 +4,9 @@ Data <- read.csv("Data.csv") # nolint
 # Hedonic regression of prices (band)
 # relation of regions and house prices
 # relation of regions and time between sale
-# prices vs socio-economic variables 
+# prices vs socio-economic variables
 # Repeat sales index
-#correlation matrix plot
+# correlation matrix plot
 
 
 # relation of rating and house prices
@@ -251,7 +251,7 @@ visreg(epc_price1_cont,
 )
 
 transp2 <- function(x) {
-    return((1 - 0.3030303 * x)^ (1 / -0.3030303))
+    return((1 - 0.3030303 * x)^(1 / -0.3030303))
 }
 windows()
 par(mfrow = c(2, 4))
