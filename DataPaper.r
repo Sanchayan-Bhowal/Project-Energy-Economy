@@ -3,6 +3,7 @@ data <- read.csv("Data.csv")
 library(ggplot2)
 library(timeDate)
 library(DescTools)
+library(gridExtra)
 describe <- function(variable) {
   z <- data.frame(
     Mean = mean(variable),
@@ -33,35 +34,35 @@ border <- "#092f4e"
 fill <- "#204c71"
 
 windows()
-par(mfrow = c(2, 2))
-ggplot(data = data, aes(ln_price_1)) +
+nltp <- ggplot(data = data, aes(ln_price_1)) +
   geom_histogram(aes(y = ..count.. / sum(..count..)),
     binwidth = 0.18, col = border, fill = fill
   ) +
   ylab("Fraction") +
   ggtitle("Natural logarithm of first transaction price")
 
-ggplot(data = data, aes(ln_price_2)) +
+nlsp <- ggplot(data = data, aes(ln_price_2)) +
   geom_histogram(aes(y = ..count.. / sum(..count..)),
     binwidth = 0.18, col = border, fill = fill
   ) +
   ylab("Fraction") +
   ggtitle("Natural logarithm of second transaction price")
 
-ggplot(data = data, aes(perc_change_p2_to_p1)) +
+ppt <- ggplot(data = data, aes(perc_change_p2_to_p1)) +
   geom_histogram(aes(y = ..count.. / sum(..count..)),
     binwidth = 0.3, col = border, fill = fill
   ) +
   ylab("Fraction") +
   ggtitle("Percentual price change between transactions")
 
-ggplot(data = data, aes(days_between_sale)) +
+ptt <- ggplot(data = data, aes(days_between_sale)) +
   geom_histogram(aes(y = ..count.. / sum(..count..)),
     bins = 35, col = border, fill = fill
   ) +
   ylab("Fraction") +
   ggtitle("Period of time between both transactions")
 
+grid.arrange(nltp, nlsp, ppt, ptt, nrow = 2, ncol = 2)
 
 epc <- function(x) {
   f <- as.numeric(table(x)[2])
@@ -88,128 +89,128 @@ epc_band <- rbind(
 print(epc_band)
 
 windows()
-par(mfrow = c(1, 2))
-ggplot(data = data, aes(epc_100)) +
+epchist <- ggplot(data = data, aes(epc_100)) +
   geom_histogram(aes(y = ..count.. / sum(..count..)),
     bins = 36, col = border, fill = fill
   ) +
   ylab("Fraction") +
   ggtitle("EPC standard assessment proceducre(SAP) points")
 
-
-ggplot(data = data, aes("", epc_100)) +
+epcbox <- ggplot(data = data, aes("", epc_100)) +
   geom_boxplot(col = border, fill = fill) +
   xlab(NULL) +
   ggtitle("EPC standard assessment proceducre(SAP) points")
 
-windows()
-par(mfrow = c(3, 2))
+grid.arrange(epchist, epcbox, nrow = 1, ncol = 2)
 
-ggplot(data = data, aes(imd_score)) +
+windows()
+
+imdr <- ggplot(data = data, aes(imd_score)) +
   geom_histogram(aes(y = ..count.. / sum(..count..)),
     bins = 30, col = border, fill = fill
   ) +
   ylab("Fraction") +
   ggtitle("Index of Multiple deprivation(IMD) rank")
 
-ggplot(data = data, aes(imd_level)) +
+imdd <- ggplot(data = data, aes(imd_level)) +
   geom_bar(aes(y = ..count.. / sum(..count..)), col = border, fill = fill) +
   ylab("Fraction") +
   ggtitle("Index of Multiple deprivation(IMD) decile")
 
-ggplot(data = data, aes(barrier_score)) +
+bhsr <- ggplot(data = data, aes(barrier_score)) +
   geom_histogram(aes(y = ..count.. / sum(..count..)),
     bins = 30, col = border, fill = fill
   ) +
   ylab("Fraction") +
   ggtitle("Barriers to housing and service rank")
 
-ggplot(data = data, aes(barrier_level)) +
+bhsd <- ggplot(data = data, aes(barrier_level)) +
   geom_bar(aes(y = ..count.. / sum(..count..)), col = border, fill = fill) +
   ylab("Fraction") +
   ggtitle("Barriers to housing and service decile")
 
-ggplot(data = data, aes(crime_score)) +
+cr <- ggplot(data = data, aes(crime_score)) +
   geom_histogram(aes(y = ..count.. / sum(..count..)),
     bins = 35, col = border, fill = fill
   ) +
   ylab("Fraction") +
   ggtitle("Crime rank")
 
-ggplot(data = data, aes(crime_level)) +
+cd <- ggplot(data = data, aes(crime_level)) +
   geom_bar(aes(y = ..count.. / sum(..count..)), col = border, fill = fill) +
   ylab("Fraction") +
   ggtitle("Crime decile")
 
-windows()
-par(mfrow = c(3, 2))
+grid.arrange(imdr, imdd, bhsr, bhsd, cr, cd, nrow = 3, ncol = 2)
 
-ggplot(data = data, aes(educ_score)) +
+windows()
+
+estdr <- ggplot(data = data, aes(educ_score)) +
   geom_histogram(aes(y = ..count.. / sum(..count..)),
     bins = 35, col = border, fill = fill
   ) +
   ylab("Fraction") +
   ggtitle("Education skills and training deprivation rank")
 
-ggplot(data = data, aes(educ_level)) +
+estdd <- ggplot(data = data, aes(educ_level)) +
   geom_bar(aes(y = ..count.. / sum(..count..)), col = border, fill = fill) +
   ylab("Fraction") +
   ggtitle("Education skills and training deprivation decile")
 
-ggplot(data = data, aes(emp_score)) +
+edr <- ggplot(data = data, aes(emp_score)) +
   geom_histogram(aes(y = ..count.. / sum(..count..)),
     bins = 35, col = border, fill = fill
   ) +
   ylab("Fraction") +
   ggtitle("Employment deprivation rank")
 
-ggplot(data = data, aes(emp_level)) +
+edd <- ggplot(data = data, aes(emp_level)) +
   geom_bar(aes(y = ..count.. / sum(..count..)), col = border, fill = fill) +
   ylab("Fraction") +
   ggtitle("Employment deprivation decile")
 
-
-ggplot(data = data, aes(health_score)) +
+hddr <- ggplot(data = data, aes(health_score)) +
   geom_histogram(aes(y = ..count.. / sum(..count..)),
     bins = 35, col = border, fill = fill
   ) +
   ylab("Fraction") +
   ggtitle("Health deprivation and disability rank")
 
-ggplot(data = data, aes(health_level)) +
+hddd <- ggplot(data = data, aes(health_level)) +
   geom_bar(aes(y = ..count.. / sum(..count..)), col = border, fill = fill) +
   ylab("Fraction") +
   ggtitle("Health deprivation and disability level")
 
+grid.arrange(estdr, estdd, edr, edd, hddr, hddd, nrow = 3, ncol = 2)
 
 windows()
-par(mfrow = c(2, 2))
 
-ggplot(data = data, aes(income_score)) +
+idr <- ggplot(data = data, aes(income_score)) +
   geom_histogram(aes(y = ..count.. / sum(..count..)),
     bins = 35, col = border, fill = fill
   ) +
   ylab("Fraction") +
   ggtitle("Income deprivation rank")
 
-ggplot(data = data, aes(income_level)) +
+idd <- ggplot(data = data, aes(income_level)) +
   geom_bar(aes(y = ..count.. / sum(..count..)), col = border, fill = fill) +
   ylab("Fraction") +
   ggtitle("Income deprivation decile")
 
 
-ggplot(data = data, aes(living_score)) +
+ledr <- ggplot(data = data, aes(living_score)) +
   geom_histogram(aes(y = ..count.. / sum(..count..)),
     bins = 35, col = border, fill = fill
   ) +
   ylab("Fraction") +
   ggtitle("Living environment deprivation rank")
 
-ggplot(data = data, aes(living_level)) +
+ledd <- ggplot(data = data, aes(living_level)) +
   geom_bar(aes(y = ..count.. / sum(..count..)), col = border, fill = fill) +
   ylab("Fraction") +
   ggtitle("Living environment deprivation decile")
 
+grid.arrange(idr, idd, ledr, ledd, nrow = 2, ncol = 2)
 
 geo <- function(x) {
   f <- as.numeric(table(x)[2])
