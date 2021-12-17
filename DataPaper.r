@@ -48,6 +48,9 @@ nlsp <- ggplot(data = data, aes(ln_price_2)) +
   ylab("Fraction") +
   ggtitle("Natural logarithm of second transaction price")
 
+grid.arrange(nltp, nlsp, nrow = 1, ncol = 2)
+
+windows()
 ppt <- ggplot(data = data, aes(perc_change_p2_to_p1)) +
   geom_histogram(aes(y = ..count.. / sum(..count..)),
     binwidth = 0.3, col = border, fill = fill
@@ -61,8 +64,7 @@ ptt <- ggplot(data = data, aes(days_between_sale)) +
   ) +
   ylab("Fraction") +
   ggtitle("Period of time between both transactions")
-
-grid.arrange(nltp, nlsp, ppt, ptt, nrow = 2, ncol = 2)
+grid.arrange(ppt, ptt, nrow = 1, ncol = 2)
 
 epc <- function(x) {
   f <- as.numeric(table(x)[2])

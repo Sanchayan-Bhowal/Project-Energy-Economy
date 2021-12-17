@@ -78,6 +78,7 @@ confint(epc_price2, conf.level = 0.95)
 
 
 windows()
+
 plot(1:13, hedonic_price1[-1],
     type = "n",
     axes = F,
@@ -251,7 +252,8 @@ visreg(epc_price1_cont,
 )
 
 transp2 <- function(x) {
-    return((1 - 0.3030303 * x)^(1 / -0.3030303))
+    return((1 - 0.3030303 * x)^
+        (1 / -0.3030303))
 }
 windows()
 par(mfrow = c(2, 4))
@@ -265,19 +267,18 @@ index <- lm(log_change ~ 0 + Y1996 + Y1997 + Y1998 + Y1999 +
     Y2000 + Y2001 + Y2002 + Y2003 + Y2004 + Y2005 + Y2006 + Y2007 + Y2008
     + Y2009 + Y2010 + Y2011 + Y2012, data = rsi)
 windows()
-rs_index <- exp(coef(index))
-plot(rs_index, type = "o", axes = F, xlab = "", ylab = "", col = "#3C78D8")
-axis(2)
-axis(1,
-    at = 1:17,
-    labels = gsub("Y", "", colnames(rsi)[4:20]),
-    padj = 1
-)
-title(
-    main = "Repeated Sales Index",
-    ylab = "Index",
-    xlab = "Year"
-)
+rs_index <- c(1, exp(coef(index)))
+year <- as.numeric(gsub("Y", "", colnames(rsi)[3:20]))
+rs_index <- data.frame(year, rs_index)
+ggplot(data = rs_index, aes(x = year, y = rs_index)) +
+    geom_line(color = "#204c71", size = 2, alpha = 0.9) +
+    scale_x_discrete(name = "Year", limits = year) +
+    ylab("Index") +
+    ggtitle("Repeated Sales Index") +
+    theme(
+        plot.title = element_text(hjust = 0.5),
+        text = element_text(size = 20)
+    )
 
 # correlation matrix plot
 
