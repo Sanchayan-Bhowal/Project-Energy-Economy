@@ -1,0 +1,56 @@
+
+Call:
+lm(formula = ln_price_1 ~ imd_score + income_score + emp_score + 
+    educ_score + health_score + crime_score + barrier_score + 
+    living_score, data = Data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.81264 -0.38337  0.07388  0.39515  3.09259 
+
+Coefficients:
+                    Estimate     Std. Error t value             Pr(>|t|)    
+(Intercept)   10.82817670995  0.04523532930 239.374 < 0.0000000000000002 ***
+imd_score     -0.00006253022  0.00000696566  -8.977 < 0.0000000000000002 ***
+income_score  -0.00001487051  0.00000390421  -3.809             0.000142 ***
+emp_score      0.00003609509  0.00000368207   9.803 < 0.0000000000000002 ***
+educ_score     0.00003438949  0.00000196613  17.491 < 0.0000000000000002 ***
+health_score   0.00003242077  0.00000250168  12.960 < 0.0000000000000002 ***
+crime_score    0.00000174045  0.00000167774   1.037             0.299622    
+barrier_score -0.00000001551  0.00000146222  -0.011             0.991539    
+living_score   0.00001157480  0.00000167902   6.894     0.00000000000624 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.572 on 4192 degrees of freedom
+Multiple R-squared:  0.2385,	Adjusted R-squared:  0.2371 
+F-statistic: 164.2 on 8 and 4192 DF,  p-value: < 0.00000000000000022
+
+
+Call:
+lm(formula = t_price_2 ~ imd_score + income_score + emp_score + 
+    educ_score + health_score + crime_score + barrier_score + 
+    living_score, data = Data)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.051161 -0.007326  0.000200  0.006902  0.039340 
+
+Coefficients:
+                    Estimate     Std. Error  t value             Pr(>|t|)    
+(Intercept)    3.18665988102  0.00087845134 3627.588 < 0.0000000000000002 ***
+imd_score     -0.00000193203  0.00000013527  -14.283 < 0.0000000000000002 ***
+income_score  -0.00000017160  0.00000007582   -2.263               0.0237 *  
+emp_score      0.00000103479  0.00000007150   14.472 < 0.0000000000000002 ***
+educ_score     0.00000088244  0.00000003818   23.112 < 0.0000000000000002 ***
+health_score   0.00000085907  0.00000004858   17.683 < 0.0000000000000002 ***
+crime_score    0.00000014584  0.00000003258    4.476 0.000007795048208777 ***
+barrier_score  0.00000004633  0.00000002840    1.632               0.1028    
+living_score   0.00000026311  0.00000003261    8.069 0.000000000000000915 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.01111 on 4192 degrees of freedom
+Multiple R-squared:  0.3769,	Adjusted R-squared:  0.3757 
+F-statistic: 316.9 on 8 and 4192 DF,  p-value: < 0.00000000000000022
+

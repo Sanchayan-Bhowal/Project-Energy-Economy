@@ -1,0 +1,68 @@
+
+Call:
+lm(formula = ln_price_1 ~ epc_rating_b + epc_rating_c + epc_rating_e + 
+    epc_rating_f + epc_rating_g + reg_north_east + reg_yorkshire_and_the_humber + 
+    reg_east_midlands + reg_west_midlands + reg_east_of_england + 
+    reg_london + reg_south_east + reg_south_west, data = Data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.1927 -0.3756  0.0488  0.3921  3.4648 
+
+Coefficients:
+                              Estimate Std. Error t value             Pr(>|t|)    
+(Intercept)                  11.201346   0.024276 461.414 < 0.0000000000000002 ***
+epc_rating_b                  0.412648   0.033911  12.168 < 0.0000000000000002 ***
+epc_rating_c                  0.139870   0.021929   6.378       0.000000000199 ***
+epc_rating_e                 -0.021471   0.027018  -0.795              0.42684    
+epc_rating_f                 -0.103260   0.048702  -2.120              0.03405 *  
+epc_rating_g                 -0.371917   0.095488  -3.895       0.000099773009 ***
+reg_north_east               -0.002641   0.051658  -0.051              0.95923    
+reg_yorkshire_and_the_humber  0.061126   0.028788   2.123              0.03378 *  
+reg_east_midlands            -0.002814   0.035063  -0.080              0.93605    
+reg_west_midlands             0.101695   0.031686   3.209              0.00134 ** 
+reg_east_of_england           0.203688   0.040687   5.006       0.000000577924 ***
+reg_london                    0.882822   0.037107  23.791 < 0.0000000000000002 ***
+reg_south_east                0.496382   0.035536  13.968 < 0.0000000000000002 ***
+reg_south_west                0.239821   0.040296   5.951       0.000000002875 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.5879 on 4187 degrees of freedom
+Multiple R-squared:  0.1967,	Adjusted R-squared:  0.1942 
+F-statistic: 78.85 on 13 and 4187 DF,  p-value: < 0.00000000000000022
+
+
+Call:
+lm(formula = ln_price_2 ~ epc_rating_b + epc_rating_c + epc_rating_e + 
+    epc_rating_f + epc_rating_g + reg_north_east + reg_yorkshire_and_the_humber + 
+    reg_east_midlands + reg_west_midlands + reg_east_of_england + 
+    reg_london + reg_south_east + reg_south_west, data = Data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.3705 -0.2795 -0.0044  0.2333  3.3342 
+
+Coefficients:
+                             Estimate Std. Error t value             Pr(>|t|)    
+(Intercept)                  11.56700    0.01797 643.775 < 0.0000000000000002 ***
+epc_rating_b                  0.03577    0.02510   1.425              0.15415    
+epc_rating_c                  0.02668    0.01623   1.644              0.10026    
+epc_rating_e                  0.02064    0.02000   1.032              0.30208    
+epc_rating_f                 -0.04066    0.03605  -1.128              0.25942    
+epc_rating_g                 -0.27357    0.07067  -3.871              0.00011 ***
+reg_north_east               -0.06989    0.03823  -1.828              0.06763 .  
+reg_yorkshire_and_the_humber  0.05109    0.02131   2.398              0.01653 *  
+reg_east_midlands            -0.02497    0.02595  -0.962              0.33599    
+reg_west_midlands             0.05897    0.02345   2.515              0.01195 *  
+reg_east_of_england           0.19067    0.03011   6.332       0.000000000268 ***
+reg_london                    0.98121    0.02746  35.727 < 0.0000000000000002 ***
+reg_south_east                0.47361    0.02630  18.007 < 0.0000000000000002 ***
+reg_south_west                0.25482    0.02982   8.544 < 0.0000000000000002 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4351 on 4187 degrees of freedom
+Multiple R-squared:  0.3066,	Adjusted R-squared:  0.3045 
+F-statistic: 142.4 on 13 and 4187 DF,  p-value: < 0.00000000000000022
+
