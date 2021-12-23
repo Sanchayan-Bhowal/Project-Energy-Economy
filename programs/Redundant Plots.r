@@ -276,16 +276,21 @@ title(
 )
 sink()
 
+library(visreg)
 windows()
 par(mfrow = c(2, 4))
-termplot(epc_price1_cont,
-    partial.resid = TRUE, col.res = blues9, smooth = panel.smooth
+visreg(epc_price1_cont,
+    trans = exp, ylab = "Price 1", ylim = c(0, 300000), partial = TRUE
 )
 
+transp2 <- function(x) {
+    return((1 - 0.3030303 * x)^
+        (1 / -0.3030303))
+}
 windows()
 par(mfrow = c(2, 4))
-termplot(epc_price2_cont,
-    partial.resid = TRUE, col.res = blues9, smooth = panel.smooth
+visreg(epc_price2_cont,
+    trans = transp2, ylab = "Price 2", ylim = c(0, 300000), partial = TRUE
 )
 
 # Repeat sales index

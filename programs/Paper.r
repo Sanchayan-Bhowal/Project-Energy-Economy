@@ -258,22 +258,22 @@ p2 <- ggplot(data = Data, aes(price_2)) +
 
 grid.arrange(p1, p2, nrow = 1, ncol = 2)
 
-library(visreg)
 windows()
 par(mfrow = c(2, 4))
-visreg(epc_price1_cont,
-    trans = exp, ylab = "Price 1", ylim = c(0, 300000), partial = TRUE
+termplot(epc_price1_cont,
+    partial.resid = TRUE, col.term = "#008cff",
+    lwd.term = 5, lty.smth = 5, col.smth = "#000000",
+    col.res = "#7f7f7f30", smooth = panel.smooth
 )
 
-transp2 <- function(x) {
-    return((1 - 0.3030303 * x)^
-        (1 / -0.3030303))
-}
 windows()
 par(mfrow = c(2, 4))
-visreg(epc_price2_cont,
-    trans = transp2, ylab = "Price 2", ylim = c(0, 300000), partial = TRUE
+termplot(epc_price2_cont,
+    partial.resid = TRUE, col.term = "#008cff",
+    lwd.term = 5, lty.smth = 5, col.smth = "#000000",
+    col.res = "#7f7f7f30", smooth = panel.smooth
 )
+
 
 # Repeat sales index
 rsi <- read.csv("data/RSI.csv")
