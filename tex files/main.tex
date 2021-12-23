@@ -176,7 +176,7 @@ In this dataset, no property is assigned to band A. Most houses, around 70\%, ha
 %Discussion needed
 
 \subsection{Socio-Economic variables}
-A rank is assigned to each of the \acrfull{lsoa} in the United Kingdom in terms of crime (\gls{crime}), education (\gls{educ}), income(\gls{income}) and employment (\gls{emp}), health (\gls{health}) and disability, barrier(\gls{barrier}), and living environment (\gls{living}). A rank indicating the level of deprivation (\gls{imdg}) is also given. In all these a rank of 1 is the most deprived. Each \acrshort{lsoa} is given score out of 1 to 10 in each of these criteria, where score 1 is the most deprived 10\% of \acrshort{lsoa}s. Thus we have the following categorical variables: imd\_level, income\_level, emp\_level, educ\_level, health\_level, crime\_level, barrier\_level, living\_level. 
+A rank is assigned to each of the \acrfull{lsoa} in the United Kingdom in terms of crime (\gls{crime}), education (\gls{educ}), income(\gls{income}) and employment (\gls{emp}), health (\gls{health}) and disability, barrier(\gls{barrier}), and living environment (\gls{living}). There is also an \gls{imdg}, which indicates the amount of impoverishment. In each of these, the subject with the lowest rank is the most disadvantaged. For all the categories, each \acrshort{lsoa} is assigned a score from 1 to 10, with 1 representing the most deprived 10\% of \acrshort{lsoa}s. As a result, we have categorical variables such as imd level, income level, employment level, education level, health level, crime level, barrier level, and living level.
 
 \begin{figure}[H]
     \includegraphics[width=18cm]{Rplot3.png}
@@ -227,6 +227,12 @@ A rank is assigned to each of the \acrfull{lsoa} in the United Kingdom in terms 
 \label{table:geo}
 \end{table}
  
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=17cm]{Rplot_geo.png}
+    \caption{Geographical distribution of the transactions plotted across different regions of UK}
+    \label{fig:geo_frac}
+\end{figure}
  
 \section{Hedonic pricing model and results}
 \label{sec:hed}
@@ -338,7 +344,7 @@ In the \autoref{fig:boxprice}, the boxplot of ln prices again plotted against th
     \caption{Box Plot for ln\_price\_1 and ln\_price\_2 respectively categorised by EPCs where 2:B, 3:C, 4:D, 5:E, 6:F, 7:G}
     \label{fig:boxprice}
 \end{figure}
-We have used R to estimate the hedonic pricing indices. The logarithm of prices was regressed on categorical variables epc\_rating\_b, epc\_rating\_c, epc\_rating\_e, epc\_rating\_f, epc\_rating\_g, and various regional indicators. As most houses have \acrshort{epc} rating D, epc\_rating\_d was taken as the baseline and is held out of the regression. epc\_rating\_a is removed as no houses in the sample has \acrshort{epc} rating A. reg\_north\_west is also taken as reference, as most houses in the sample are from this region. \autoref{table:1} and \autoref{table:2} shows the summary of this linear model. 
+We have used R to estimate the hedonic pricing indices. The logarithm of prices was regressed on categorical variables epc\_rating\_b, epc\_rating\_c, epc\_rating\_e, epc\_rating\_f, epc\_rating\_g, and various regional indicators. As most houses have \acrshort{epc} rating D, epc\_rating\_d was taken as the baseline and is held out of the regression. epc\_rating\_a is removed as no houses in the sample has \acrshort{epc} rating A. reg\_north\_west is also taken as reference, as most houses in the sample are from this region. The \autoref{table:1} and \autoref{table:2} show the summary of this linear model. 
 
 \begin{table}[H]
 \centering
@@ -400,13 +406,13 @@ We have used R to estimate the hedonic pricing indices. The logarithm of prices 
     \label{fig:hedonic}
 \end{figure}
 
-The exponent of coefficients can be plotted on a line graph and is shown in above \autoref{fig:hedonic}. This shows the relation between  \acrshort{epc} rating and prices. From the \autoref{table:1}, we see that the epc\_rating\_b, epc\_rating\_c are statistically significant variables in this model. For \gls{price1}, epc\_rating\_b has hedonic index around 1.5, indicating that houses with \acrshort{epc} rating B experience a price premium. The hedonic index of epc\_rating\_g is less than 1, indicating that lower energy efficient homes tend to have lower prices. Region London has the highest hedonic index indicating that, with respect to houses in northwest region, houses in London are expensive.
+The exponent of coefficients can be plotted on a line graph and is shown in above \autoref{fig:hedonic}. This shows the relation between  \acrshort{epc} rating and prices. From the \autoref{table:1}, we see that the epc\_rating\_b, epc\_rating\_c are statistically significant variables in this model. For \gls{price1}, epc\_rating\_b has a hedonic index around 1.5, indicating that houses with \acrshort{epc} rating B experience a price premium. The hedonic index of epc\_rating\_g is less than 1, indicating that lower energy efficient homes tend to have lower prices. Region London has the highest hedonic index indicating that, with respect to houses in the northwest region, houses in London are expensive.
 
 \subsection{Diagnostic plots}
 \label{diag_plot}
 Residual is nothing but the difference between fitted values and true values. $$\varepsilon_i=y_i-\hat y_i$$ We made four assumptions on the distribution of these residuals in the beginning and now we diagnose if these assumptions hold, and assess if the model explains the relationship well.
 \subsubsection{Residuals vs. Fitted}
-This is a scatter plot of fitted values on x-axis and residual=true value$-$fitted values. These graphs indicate if the price and energy performance have a non-linear connection.
+This is a scatter plot of fitted values on the x-axis and residual=true value$-$fitted values. These graphs indicate if the price and energy performance have a non-linear connection.
 If the model does not capture the non-linear connection between predictor factors and outcome variables, the pattern may appear non-linear
 
 %Two Figures 
@@ -420,7 +426,7 @@ If the model does not capture the non-linear connection between predictor factor
 Fig shows the residuals versus fitted plot for the two models. Both the graphs show that the relationship between prices and locational factors, energy performance is nearly linear and our model explains this relationship quite well.
 
 \subsubsection{Normal Q-Q plots of residuals}
-This is a scatter plot with theoretical normal quantiles on x-axis and quantiles of residues in y-axis. This plot diagnoses if the residuals are normally distributed. The figures below show that the residuals in this model are almost normally distributed, in accordance with our assumptions.
+This is a scatter plot with theoretical normal quantiles on the x-axis and quantiles of residues in y-axis. This plot diagnoses if the residuals are normally distributed. The figures below show that the residuals in this model are almost normally distributed, following our assumptions.
 
 %Two Figures 
 
@@ -432,14 +438,12 @@ This is a scatter plot with theoretical normal quantiles on x-axis and quantiles
 \end{figure}
 
 \subsubsection{Scale-location plot and assumption of equal variance}
- The standardized residual is given by $\frac{y_i-\hat y_i}{\sqrt{\hat y_i}}$
-The standardized residual is a measure of the strength of the difference between observed and expected values. 
+The standardized residual is given by $\frac{y_i-\hat y_i}{\sqrt{\hat y_i}}$
+The intensity of the discrepancy between actual and predicted values is measured by the standardised residual.
 
-A scatter plot showing the square root of the absolute value of standardised residuals against fitted values is known as a scale-location plot.
-This graph indicates if residuals are distributed evenly across predictor ranges.
-This is how we may graphically test the equal variance assumption. If the graph is spread equally across the horizontal line, the assumption is meaningful and it is so in our linear model:
-
-%Two Figures 
+A scale-location plot is a scatter plot that shows the square root of the absolute value of standardised residuals against fitted values.
+If residuals are spread uniformly across predictor ranges, then our assumption of homoscedasticity is valid.
+This is how we may test the equal variance assumption graphically. The assumption is valid if the graph is evenly distributed throughout the horizontal line, as it is in our linear model:
 
 \begin{figure}[H]
     \centering
@@ -503,7 +507,7 @@ Instead of directly applying linear regression, we start by applying box-cox tra
 
 \subsection{Box-cox transformation}
 \label{boxcox}
-The Box-Cox transformation transforms our data so that it closely resembles a normal distribution. Suppose variable $y$ is regressed against variable $x$. The linear model is a very good fit if $y$ is normally distributed. One reason is that confidence intervals and hypothesis tests are all based on this assumption. The objective of box-cox transformation is to transform $y$ to $y^{(\lambda)}$ so that transformed $y$ is approximately normal. The family of transformations considered are:
+Our data is transformed via the Box-Cox transformation to mimic a normal distribution as nearly as possible. Consider the case when variable $y$ is regressed against variable $x$. If the data is normally distributed, the linear model provides a good match. One reason is that this assumption underpins all confidence intervals and hypothesis testing. The goal of the box-cox transformation is to convert $y$ to $y^{(\lambda)}$ in such a way that transformed $y$ is close to normal. The family of transformations considered are:
 $$  y^{(\lambda)}=\left\{\begin{array}{ll}
       \frac{y^{\lambda}-1}{\lambda} & \lambda\neq 0 \\
       \ln (y) & \lambda=0 \\
@@ -573,15 +577,13 @@ The plots above are symmetric and look like normal distribution. We can now move
 
 \subsection{Partial residue plots}
 \label{prp}
-A partial residual plot is a scatterplot to show the relationship between a given independent variable($x_i$) and the response variable($y$) given that other independent variables are also in the model.
-The partial residual plot is a useful tool to verify if there exists any linear relationship of a given variable on the response variable.
+A partial residual plot is a scatterplot that depicts the connection between a specific independent variable ($x_i$) and the response variable ($y$) in the presence of other independent variables.
+A partial residual plot is a significant tool for determining if a given variable has a linear connection with the response variable.
 Partial residuals are computed as:
-$$\textrm{Residuals} +{\hat {\beta }}_{i}x_{i}$$
-Note that the Residuals are the residuals from the full model.\\
-In partial residual plot, these partial residuals are plotted against $x_i$. The termplot function of R helps us to create such plots.
-This function also takes the projection of the regression hyperplane to the $x_i$ vs $y$ plane. The slope of the line is the coefficient of $x_i$ in the original linear model.
-Moreover, it further adds a smooth curve to the plot. This helps us analyse whether there is any non-linear relationship with the $x_i$.
-\\
+$$\textrm{Residuals} +{\hat {\beta }}_{i}x_{i}\footnote{\textbf{Note}: The Residuals are the residuals from the full model.}$$
+In a partial residual plot, these partial residuals are plotted against $x_i$. The termplot function of R helps us to create such plots.
+This function additionally takes the regression hyperplane's projection to the $x_i$ versus $y$ plane. The slope of the line is the coefficient of $x_i$ in the original linear model.
+Moreover, it further adds a smooth curve to the plot. This allows us to determine whether the $x_i$ has any non-linear relationships.
 \begin{figure}[H]
     \centering
     \includegraphics[width=18cm]{4. price vs socio-eco images/par.resid_1Plot.png}
@@ -600,9 +602,9 @@ The above plots suggests that there is no non-linear relationship and our model 
 
 \section{Repeat sales index}
 \label{rsi}
-In this section we use the repeat-sales method to examine how house values fluctuate over time by comparing the sale prices of the same piece of property.
-Using this method, assuming a house undergoes no changes, to assess how prices change over
-time, one need only look at the difference in sale prices of the same house.
+In this section, we utilise the repeat-sales approach to compare the selling prices of the same piece of property over time to see how home values vary over time.
+If a property does not change, this approach can be used to examine how prices vary over time by comparing the difference in sale prices of the same house.
+
 \subsection{Preparing the data for repeat sales index}
 The original dataset had the repeat sales prices of houses. The repeat sales transactions took place from 1995 to 2012, for this data set. We made a new dataset that consisted of variables Y1995, Y1996, ... and so on upto Y2012. For any house, these variables take value -1 if the first sales transaction took place in that year, 1 if the second sales transaction took place in that year and 0 otherwise. The variable log\_change each derived as:
 \begin{center}
@@ -662,7 +664,7 @@ Here is the list of extension we have attempted, which were not there in the ori
 \subsection{Future Scope}
 More complex regressions can be applied in terms of statistical approaches. The correlation between components could not be controlled in the current investigation. The \autoref{fig:corrmat} clearly demonstrates that several factors that we expected to be independent have a significant degree of correlation. Case and Quigley's (1991) hybrid index can also be used.
 The Case-Shiller(1987, 1989) regression method can be used to make a development on the repeat sales index. A recent method called autoregressive index has been developed by Nagaraja, Brown, and Zhao (2011).
-On a bigger dataset, the analysis may be run with additional variables, taking into account, housing attributes.etc.
+On a bigger dataset, the analysis may be run with additional variables, taking into account, housing attributes, etc.
 \section{References}
 \begin{enumerate}
     \item Franz Fuerst, Michel Ferreira Cardia Haddad(2020). \href{https://doi.org/10.1016/j.dib.2020.106359}{``Real estate data to analyse the relationship between property prices, sustainability levels and socio-economic indicators."} Data in Brief. 33 106359.
