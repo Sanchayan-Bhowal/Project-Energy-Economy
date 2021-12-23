@@ -91,7 +91,7 @@ This is an attempt to replicate and enhance the analyses presented in the paper 
 \tableofcontents
 \newpage
 \section{Introduction}
-The split incentive problem, or the lack of proper incentives to undertake energy efficiency measures, is one of the most pressing issues in the private rental sector. One party, the landlord, makes capital investments in energy efficiency and does not gain immediately, but the advantages are reaped by another, the tenant, who benefits from lower utility costs and greater thermal comfort. This affects landlords' investment decisions and creates a barrier to achieving improved energy efficiency. The key point of contention is whether the landlord can charge a higher rent for a dwelling that is more energy-efficient. ``Does improved house energy efficiency contribute to higher home sales prices?''
+The split incentive problem, or the lack of proper incentives to undertake energy efficiency measures, is one of the most pressing issues in the private rental sector.The landlord, makes capital expenditures in energy efficiency and does not profit immediately, but the tenant, reaps the benefits of decreased utility bills and increased thermal comfort. This has an impact on landlords' investment decisions and constitutes a roadblock to greater energy efficiency. The key point of contention is whether the landlord can charge a higher rent for a dwelling that is more energy-efficient. ``Is it true that increased home energy efficiency leads to greater home sales prices?''
 
 We address the topic in \autoref{sec:hed}. The hedonic regression model is used, in which the price of a property is separated into several components connected with its related attributes, and obtains estimates of the contributory value of each component. Implicit prices are estimated by linear regression.
 
@@ -470,8 +470,8 @@ Points with extreme values of variables $x_i$ are said to have high leverage. Hi
 \autoref{fig:lev} below shows the standarized residuals plotted against the leverage. The contour lines of Cook's Distance are not visible in the graph. Hence, it is evident that the number of outliers are too less. So, we do not need to rerun the model by removing outliers.
 
 \subsubsection{Cook's Distance}
-Data points with large residuals (outliers) and/or high leverage may distort the outcome and accuracy of a regression.
-The Cook’s distance statistic for every observation measures the extent of change in model estimates when that particular observation is omitted. 
+Large residuals (outliers) and/or excessive leverage in data points can skew the conclusion and accuracy of a regression.
+The Cook's distance statistic for each observation determines how much the model estimates change when that observation is removed.
 Cook's distance $D_{i}$ of observation $i$ is defined as the sum of all the changes in the regression model when observation $i$ is removed from it
 $$D_{i}={\frac {1}{(K+1)s^{2}} \sum_ {j=1}^{n}(\hat y_j-\hat y_{j(i)})}={\frac {e_{i}^{2}}{(K+1)s^{2}}}\left[{\frac {h_{ii}}{(1-h_{ii})^{2}}}\right].$$
 where ${\widehat {y\, }}_{j(i)}$ is the fitted response value obtained when excluding $i$, and $s$ is the standard error.
@@ -483,7 +483,7 @@ where ${\widehat {y\, }}_{j(i)}$ is the fitted response value obtained when excl
     \label{fig:cooks1}
 \end{figure}
 
-Hence, our fitted model is not highly distorted. We can see there are too less points with high Cook’s Distance. This shows that although the data had many outliers pointed out by the boxplot but they mostly have low influence.
+As a result, our fitted model is not extremely distorted. We can see there are too less points with high Cook’s Distance. This shows that although the data had many outliers pointed out by the boxplot but they mostly have low influence.
 \begin{figure}[H]
     \centering
     \includegraphics[width=18cm]{3.3 images/3.3.4.1.png}
@@ -494,7 +494,7 @@ On the other hand \autoref{fig:cooks2} shows the plot of leverage and cooks dist
 
 \section{Price vs socio-economic variables}
 We would like to relate \gls{price1} and \gls{price2} with the socio-economic variables \gls{imdg}, \gls{income}, \gls{emp}, \gls{educ}, \gls{health}, \gls{crime}, \gls{barrier}, \gls{living}. This would reveal the dependency of housing prices on socio-economic environment.
-In many statistical techniques, we assume that the errors are normally distributed and regression is one of them. The plots given below clearly show that the \gls{price1} and \gls{price2} variables are not normal.
+We assume that errors are normally distributed in a number of statistical procedures, including regression. The plots given below clearly show that the \gls{price1} and \gls{price2} variables are not normal.
 
 \begin{figure}[H]
     \centering
@@ -606,7 +606,7 @@ In this section, we utilise the repeat-sales approach to compare the selling pri
 If a property does not change, this approach can be used to examine how prices vary over time by comparing the difference in sale prices of the same house.
 
 \subsection{Preparing the data for repeat sales index}
-The original dataset had the repeat sales prices of houses. The repeat sales transactions took place from 1995 to 2012, for this data set. We made a new dataset that consisted of variables Y1995, Y1996, ... and so on upto Y2012. For any house, these variables take value -1 if the first sales transaction took place in that year, 1 if the second sales transaction took place in that year and 0 otherwise. The variable log\_change each derived as:
+The original dataset had the repeat sales prices of houses. The repeat sales transactions took place from 1995 to 2012, for this data set. We made a new dataset that consisted of variables Y1995, Y1996, ... and so on upto Y2012.These variables take the value -1 if the first sale transaction occurred in that year, 1 if the second sale transaction occurred in that year, and 0 otherwise, for each house. The variable log\_change each derived as:
 \begin{center}
     log\_change $=$ ln\_price\_2 $-$ ln\_price\_1
 \end{center}
@@ -635,17 +635,16 @@ The \autoref{fig:rsi} shows the line graph of the estimated coefficients. There 
 
 \section{Conclusions}
 \label{sec:conc}
-Landlords can make informed investments when there is a clear link between price and energy efficiency. In addition, we have taken regional aspects into account. We linked the pricing to socio-economic parameters in the second model. The empirical findings confirm that energy efficiency characteristics have a minor but considerable impact on both transaction prices. Furthermore, the current study was unable to control the correlation between factors. Moreover, our model was only focused on pricing, and we were unable to establish a link between \acrshort{epc}s and Regions. In order to produce a comprehensive idea on this divided incentive dilemma, the data can also be enlarged to a much larger database.
+Landlords can make informed investments when there is a clear link between price and energy efficiency. In addition, we have taken regional aspects into account. We linked the pricing to socio-economic parameters in the second model. Energy efficiency features have a moderate but considerable influence on both transaction prices, according to the empirical data. Furthermore, the current study was unable to regulate the correlation between factors. Moreover, our model was only focused on pricing, and we were unable to establish a link between \acrshort{epc}s and Regions. In order to produce a comprehensive idea on this divided incentive dilemma, the data can also be enlarged to a much larger database.
 
 \subsection{Limitations}
 \begin{itemize}
     \item For hedonic regression, a large  data must be collected and processed with. However, the data that was utilised only had 4201 values. The Hedonic Price Index calculates how much individuals are prepared to pay for alleged differences in environmental quality and its implications. However, if individuals are ignorant of the link between environmental attributes and property worth, the value will not be reflected in the price. 
-    \item One major issue is that repeat sales approach remove residences that sell only once during the data gathering period. Another issue is that all houses age, and as a result, the houses alter, which might impact the index, which is not taken into account here.
+    \item The repeat sales technique has a key flaw in that it excludes homes that sell only once during the data collection period. Another issue is that all houses age, and as a result, the houses alter, which might impact the index, which is not taken into account here.
     \item While using box-cox transformation, the lambda obtained for \gls{price2} was not zero, and is therefore not possible to interpret. Also box-cox transformation does not always guarantee normality.
 \end{itemize}
 \subsection{Extensions}
-The chief findings support existing literature on “Is there an Economic Case for Energy-Efficient Dwellings in the UK Private Rental Market?” in the housing market by adding to empirical evidence on the relationship between energy efficiency ratings and pricing decisions and demonstrating that the features captured by \acrshort{epc}s are widely significant to housing price.
-
+The chief findings support existing literature on “Is there an Economic Case for Energy-Efficient Dwellings in the UK Private Rental Market?” by contributing to the observational evidence on the link between energy efficiency ratings and pricing decisions in the housing market, and establishing that the aspects covered by EPCs are broadly important to housing price.
 Here is the list of extension we have attempted, which were not there in the original paper.
 \begin{enumerate}
     \item Plots for visualization viz.
