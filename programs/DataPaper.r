@@ -226,6 +226,7 @@ geo <- function(x) {
   return(z)
 }
 geo_band <- rbind(
+  geo(data$reg_north_east),
   geo(data$reg_north_west),
   geo(data$reg_yorkshire_and_the_humber),
   geo(data$reg_east_midlands),
@@ -233,9 +234,7 @@ geo_band <- rbind(
   geo(data$reg_east_of_england),
   geo(data$reg_london),
   geo(data$reg_south_east),
-  geo(data$reg_south_west),
-  geo(data$reg_north_east)
+  geo(data$reg_south_west)
 )
 
 print(geo_band)
-# what is population fraction column in table 4 pg 10??
