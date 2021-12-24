@@ -91,15 +91,15 @@ This is an attempt to replicate and enhance the analyses presented in the paper 
 \tableofcontents
 \newpage
 \section{Introduction}
-The split incentive problem, or the lack of proper incentives to undertake energy efficiency measures, is one of the most pressing issues in the private rental sector.The landlord, makes capital expenditures in energy efficiency and does not profit immediately, but the tenant, reaps the benefits of decreased utility bills and increased thermal comfort. This has an impact on landlords' investment decisions and constitutes a roadblock to greater energy efficiency. The key point of contention is whether the landlord can charge a higher rent for a dwelling that is more energy-efficient. ``Is it true that increased home energy efficiency leads to greater home sales prices?''
+The split incentive problem, or the lack of proper incentives to undertake energy efficiency measures, is one of the most pressing issues in the private rental sector. The landlord, makes capital expenditures in energy efficiency and does not profit immediately, but the tenant, reaps the benefits of decreased utility bills and increased thermal comfort. This has an impact on landlords' investment decisions and constitutes a roadblock to greater energy efficiency. The key point of contention is whether the landlord can charge a higher rent for a dwelling that is more energy-efficient. ``Is it true that increased home energy efficiency leads to greater home sales prices?''
 
 We address the topic in \autoref{sec:hed}. The hedonic regression model is used, in which the price of a property is separated into several components connected with its related attributes, and obtains estimates of the contributory value of each component. Implicit prices are estimated by linear regression.
 
-In section 4, we relate the housing prices to the socio-economic environment of the area. In section 5, we address another important question `how does the sale prices of houses fluctuate with time in years?' We use the repeat sales method introduced by Bailey, Muth, and Nourse (1963). Lastly we put forward our entire summary in \autoref{sec:conc}.
+In \autoref{sec:pvsse}, we relate the housing prices to the socio-economic environment of the area. In \autoref{rsi}, we address another important question `how does the sale prices of houses fluctuate with time in years?'. We use the repeat sales method introduced by Bailey, Muth, and Nourse (1963). Lastly, we put forward our entire summary in \autoref{sec:conc}.
 
 \section{Data and descriptive statistics}
-The data set contains information on dwellings from a large sample of real estates in the United Kingdom (n=4, 201). There are 43 variables altogether and can be categorised into four classes: Repeat sales transactions variables, \acrfull{epc} variables, \acrfull{imd} variables, Geographical location variables. The authors of the original publication also wrote the data article on this dataset. 
-The data was gathered by them from a number of publically available sources and filtered to make it easier to analyse.
+The data set contains information on dwellings from a large sample of real estates in the United Kingdom (n=4,201). There are 43 variables altogether and can be categorised into four classes: Repeat sales transactions variables, \acrfull{epc} variables, \acrfull{imd} variables, Geographical location variables. The authors of the original publication also wrote the data article on this dataset. 
+The data was gathered by them from a number of publicly available sources and filtered to make it easier to analyse.
 \begin{itemize}
     \item \textbf{Step 1}: The information on residences that have been sold at least twice were obtained from Her Majesty's Land Registry's online database, which had residential transaction values from 1995 to 2012. 
     \item \textbf{Step 2}: The \acrshort{epc} rating data was acquired from the Domestic Energy Performance Certificate Register online database and then combined with the dataset. 
@@ -108,11 +108,11 @@ The data was gathered by them from a number of publically available sources and 
 We proceed to explain the variables and highlight the key features of data. In the dataset the 4201 houses are indexed by id running from 1 to 4201.
 \subsection{Repeat sales transactions variables}
 The variables price \_1 and \gls{price2} represent the first and second sales prices, respectively which were brought on date\_1 and date\_2 respectively. From these raw variables, two derived variables are formed ln\_price\_1, ln\_price\_2 are formed by taking their respective logarithms of \gls{price1} and \gls{price2}; days\_between\_sale represents the number of days between date\_1 and date\_2. Another variable denoted by perc\_change\_p2\_to\_p1, notes the percentage change of \gls{price1} and \gls{price2}.
-The \autoref{table:desc} show a summary of the transactional variables.\footnote{The header described as \textbf{Normal} refers to the Shapiro-Francia normality test. The null hypothesis is that the data is normally distributed.The R function ShapiroFranciaTest() is being used to calculate the p-values.}
+The \autoref{table:desc} show a summary of the transactional variables.\footnote{The header described as \textbf{Normal} refers to the Shapiro-Francia normality test. The null hypothesis is that the data is normally distributed. The R function ShapiroFranciaTest() is being used to calculate the p-values.}
 \begin{table}[H]
 \resizebox{\columnwidth}{!}{\begin{tabular}{l l l l l l l l l l}
 \hline
-Variable & Mean & Median & Std.Dev & Skewnwss & Kurtosis & Smallest & Largest & Obs & Normal
+Variable & Mean & Median & Std.Dev & Skewness & Kurtosis & Smallest & Largest & Obs & Normal
 \\
 \hline
 \gls{price1} & 120190.8638 & 100000 & 189750.5168 & 23.9595 & 689.7001 & 6000 & 5660000 & 4201 & 1.3e-80 \\
@@ -131,7 +131,7 @@ days\_between\_sale & 2400.0838 & 2196 & 1236.9192 & 0.5589 & -0.3239 & 187 & 61
 \begin{figure}[H]
     \centering
     \includegraphics[width=15cm]{ln_price.png}
-    \caption{Distributions of the log price paid in the first (upper left hand side) and second (upper right hand side) property sale transactions}
+    \caption{Distributions of the log price paid in the first (upper left-hand side) and second (upper right-hand side) property sale transactions}
     \label{fig:transactional1}
 \end{figure}
 
@@ -143,7 +143,7 @@ days\_between\_sale & 2400.0838 & 2196 & 1236.9192 & 0.5589 & -0.3239 & 187 & 61
 \end{figure}
 
 \subsection{Energy performance certificate(EPC) variables}
-An \acrshort{epc} is a rating system that describes the energy efficiency of real estate properties in the European Union. A score out of hundred denoted by epc\_100 is given to each house, where 1 is the least least efficient, and is based on \acrfull{sap} points. Each house was given an \acrshort{epc} band according to its \acrshort{epc} rating. A house belongs to a particular band in A, B, C, D, E, F, G if the \acrshort{sap} points is in the range of 92-100, 81-91, 69-80, 55-68, 39-54, 21-38, 1-20 respectively. The varaibles epc\_rating\_a, epc\_rating\_b, epc\_rating\_c, epc\_rating\_d, epc\_rating\_e, epc\_rating\_f, epc\_rating\_g are boolean variables which takes 1 if and only if the house is assigned to band A, B, C, D, E, F, G respectively. Another variable ln\_epc\_10 is obtained by taking logarithm of epc\_100. The \autoref{table:EPC} show the descriptive statistics of these variables. 
+An \acrshort{epc} is a rating system that describes the energy efficiency of real estate properties in the European Union. A score out of hundred denoted by epc\_100 is given to each house, where 1 is the least efficient, and is based on \acrfull{sap} points. Each house was given an \acrshort{epc} band according to its \acrshort{epc} rating. A house belongs to a particular band in A, B, C, D, E, F, G if the \acrshort{sap} points is in the range of 92-100, 81-91, 69-80, 55-68, 39-54, 21-38, 1-20 respectively. The variables epc\_rating\_a, epc\_rating\_b, epc\_rating\_c, epc\_rating\_d, epc\_rating\_e, epc\_rating\_f, epc\_rating\_g are Boolean variables which takes 1 if and only if the house is assigned to band A, B, C, D, E, F, G respectively. Another variable ln\_epc\_10 is obtained by taking logarithm of epc\_100. The \autoref{table:EPC} show the descriptive statistics of these variables. 
 
 \begin{table}[H]
 \centering
@@ -172,7 +172,7 @@ An \acrshort{epc} is a rating system that describes the energy efficiency of rea
     \label{fig:EPCs}
 \end{figure}
 
-In this dataset, no property is assigned to band A. Most houses, around 70\%, have the rating C and D. Also, few data is available on \acrshort{epc} F and G. 
+In this dataset, no property is assigned to band A. Most houses, around 70\%, have the rating C and D. Also, few data are available on \acrshort{epc} F and G. 
 %Discussion needed
 
 \subsection{Socio-Economic variables}
@@ -204,7 +204,7 @@ A rank is assigned to each of the \acrfull{lsoa} in the United Kingdom in terms 
 \end{figure}
 
 \subsection{Geographical location variables}
- The properties in dataset were distributed geographically according to the \acrfull{ons} categorization, which includes nine regions (previously known as \acrshort{gor}). The variables reg\_north\_east, reg\_north\_west, reg\_yorkshire\_and\_the\_humber, reg\_east\_midlands, reg\_west\_midlands, reg\_east\_of\_england, reg\_london, reg\_south\_east, reg\_south\_west are the boolean variables indicating the region in which property belongs to.
+ The properties in dataset were distributed geographically according to the \acrfull{ons} categorization, which includes nine regions (previously known as \acrshort{gor}). The variables reg\_north\_east, reg\_north\_west, reg\_yorkshire\_and\_the\_humber, reg\_east\_midlands, reg\_west\_midlands, reg\_east\_of\_england, reg\_london, reg\_south\_east, reg\_south\_west are the Boolean variables indicating the region in which property belongs to.
 
   \begin{table}[H]
 \centering
@@ -255,10 +255,10 @@ The coefficients $\hat \beta_{jt}$ can be interpreted as follows. Consider $x_{j
 $$\frac{\partial (\ln \hat P_{t})}{\partial x_{jt}}=\hat \beta_{jt}$$
 $$\Rightarrow \frac{\partial \hat P_{t}}{\partial x_{jt}}=\hat \beta_{jt} \hat P_{t}$$
 
-On the other hand if $x_{jt}$ is a categorical variable, hold all other variables constant and let $x_{jt}$ change to $x_{jt}+\Delta x_{ijt}$ and suppose $\hat P_t$ changes to $\hat P'_t$. Then, 
+On the other hand, if $x_{jt}$ is a categorical variable, hold all other variables constant and let $x_{jt}$ change to $x_{jt}+\Delta x_{ijt}$ and suppose $\hat P_t$ changes to $\hat P'_t$. Then, 
 $$\ln(\hat P'_t)-\ln(\hat P_t)=\hat \beta_{jt}\Delta x_{jt}$$
 $$\Rightarrow \hat P'_t=\hat P_t e^{\beta_{jt}\Delta x_{jt}}$$
-Thus, for categorical variables, $e^{\hat \beta_{jt}}$ measures the prportion of change broght in the price for unit change in $x_{jt}$.
+Thus, for categorical variables, $e^{\hat \beta_{jt}}$ measures the proportion of change brought in the price for unit change in $x_{jt}$.
 
 \subsection{Summary of important terms in regression}
 \subsubsection{Multiple Regression Model}
@@ -285,7 +285,7 @@ y_n
 \end{bmatrix}$$
 A model of the form
 $\hat y=\hat \beta_0+\hat \beta_1 x_1+\cdots +\hat \beta_n x_K$
-is to be fit to data, i.e. $\hat Y=X\hat \beta$. We need to find $\hat \beta $ that minimizes the \acrfull{sse}: $S(\hat \beta)=||Y-\hat Y||^2$.
+is to be fit to data, i.e., $\hat Y=X\hat \beta$. We need to find $\hat \beta $ that minimizes the \acrfull{sse}: $S(\hat \beta)=||Y-\hat Y||^2$.
 \begin{itemize}
     \item Equate $\partial S/(\partial \hat \beta_i )=0$ and we obtain: $(X^T X) \hat \beta=X^T \textbf{Y}$.
     \item A formal solution is $\hat \beta=(X^T X)^{-1} X^T \textbf{Y}$. 
@@ -319,7 +319,7 @@ The p-value for this test is given in the last column. The significance code is 
 \subsubsection{{Residual standard error}} If $y$ is the dependent variable estimated by $\hat y$, the residual standard error $s$ is given by
 $$s=\sqrt{\frac{SSE}{n-(K+1)}}=\sqrt{\frac{\sum {(y_i-\hat y_i)^2}}{n-(K+1)}}$$
 $s$ is an unbiased estimator of $\sigma$.
-\subsubsection{{Multiple R-squared}} If $y$ is the dependent variable estimated by $\hat y$, then the Multiple coefficient of determination $R$ is given by $$R^2=1-\frac{SSE}{SS_{yy}}=1-\frac{\sum {(y_i-\hat y_i)^2}}{\sum {(y_i- \overline{y}_i)^2}}$$ 
+\subsubsection{{Multiple R-squared}} If $y$ is the dependent variable estimated by $\hat y$, then the Multiple coefficients of determination $R$ is given by $$R^2=1-\frac{SSE}{SS_{yy}}=1-\frac{\sum {(y_i-\hat y_i)^2}}{\sum {(y_i- \overline{y}_i)^2}}$$ 
 represents  the  proportion  of  the  total  sample  variation  in  $y$  that  can  be  ``explained'' by the multiple-regression model.
 \subsubsection{{Adjust R-squared}} Adjust R-squared is defined as $$\overline{R} ^2=1-\frac{n-1}{n-(K+1)}(1-R^2)$$
 The value of R may be large due to the excess number of regressors, which may not add to the regression's explanatory power. This is penalised by adjusted R-squared. 
@@ -337,7 +337,7 @@ Here are some preliminary plots before moving to regression. \autoref{fig:mprice
     \caption{Plot of mean of ln\_price\_1 and ln\_price\_2 across different \acrshort{epc}s}
     \label{fig:mprice}
 \end{figure}
-In the \autoref{fig:boxprice}, the boxplot of ln prices again plotted against the different \acrshort{epc}s. This shows that there is a slight but some trend. In the x-axis 2 refers to \acrshort{epc} B, 3 to \acrshort{epc} C and so on. We can observe that there are many outliers captured by the boxplot. \acrshort{epc} C and D are neither the best nor the worst. Hence, there is a wide range of prices due to many investments on these categories. That is why there are so many outliers. On the other hand we can locate an outlier in B which is too far from the rest. That observation might be unusual. Furthermore, there is too less data on \acrshort{epc} G leading to less number of outliers.
+In the \autoref{fig:boxprice}, the boxplot of ln prices again plotted against the different \acrshort{epc}s. This shows that there is a slight but some trend. In the x-axis 2 refers to \acrshort{epc} B, 3 to \acrshort{epc} C and so on. We can observe that there are many outliers captured by the boxplot. \acrshort{epc} C and D are neither the best nor the worst. Hence, there is a wide range of prices due to many investments on these categories. That is why there are so many outliers. On the other hand, we can locate an outlier in B which is too far from the rest. That observation might be unusual. Furthermore, there is too less data on \acrshort{epc} G leading to a smaller number of outliers.
 \begin{figure}[H]
     \centering
     \includegraphics[width=16cm]{3.2. images/Rplot6.png}
@@ -352,8 +352,8 @@ We have used R to estimate the hedonic pricing indices. The logarithm of prices 
  \hline
  Variable & Estimate & Std Error & t-value & Pr($>|t|$) &  \\ [0.5ex] 
  \hline
- Intercept & 11.201346 &  0.024276 & 461.414 & 0(approx) & *** \\
- epc\_rating\_b & 0.412648 & 0.033911 & 12.168 & 0(approx) & *** \\
+ Intercept & 11.201346 &  0.024276 & 461.414 & 0(approx.) & *** \\
+ epc\_rating\_b & 0.412648 & 0.033911 & 12.168 & 0(approx.) & *** \\
  epc\_rating\_c & 0.139870 & 0.021929 & 6.378 & $2\cdot 10^{-9}$ & *** \\
  epc\_rating\_e & -0.021471 & 0.027018 & -0.795 & 0.42684 &  \\   
  epc\_rating\_f & -0.103260 &  0.048702 & -2.120 & 0.03405 & * \\
@@ -363,8 +363,8 @@ We have used R to estimate the hedonic pricing indices. The logarithm of prices 
  reg\_east\_midlands & -0.002814 & 0.035063 & -0.080 & 0.93605 &  \\   
  reg\_west\_midlands & 0.101695 & 0.031686 & 3.209 & 0.00134 & ** \\
  reg\_east\_of\_england & 0.203688 & 0.040687 & 5.006 & 0.0000006 & *** \\
- reg\_london & 0.882822 & 0.037107 & 23.791 & 0(approx) & *** \\
- reg\_south\_east & 0.496382 & 0.035536 & 13.968 & 0(approx) & *** \\
+ reg\_london & 0.882822 & 0.037107 & 23.791 & 0(approx.) & *** \\
+ reg\_south\_east & 0.496382 & 0.035536 & 13.968 & 0(approx.) & *** \\
  reg\_south\_west & 0.239821 & 0.040296 & 5.951 & $3\cdot 10^{-8}$ & *** \\ [1ex] 
  \hline
  \end{tabular}
@@ -378,7 +378,7 @@ We have used R to estimate the hedonic pricing indices. The logarithm of prices 
  \hline
  Variable & Estimate & Std Error & t-value & Pr($>|t|$) &  \\ [0.5ex] 
  \hline
-  (Intercept) & 11.56700 & 0.01797 & 643.775 & 0(approx) & *** \\
+  (Intercept) & 11.56700 & 0.01797 & 643.775 & 0(approx.) & *** \\
  epc\_rating\_b & 0.03577 & 0.02510 & 1.425 & 0.15415 &  \\    
  epc\_rating\_c & 0.02668 & 0.01623 & 1.644 & 0.10026 &   \\  
  epc\_rating\_e & 0.02064 & 0.02000 & 1.032 & 0.30208 &  \\   
@@ -388,10 +388,10 @@ We have used R to estimate the hedonic pricing indices. The logarithm of prices 
  reg\_yorkshire\_and\_the\_humber & 0.05109 & 0.02131 & 2.398 & 0.01653 & * \\  
  reg\_east\_midlands & -0.02497 & 0.02595 & -0.962 & 0.33599 &  \\   
  reg\_west\_midlands & 0.05897 & 0.02345 & 2.515 & 0.01195 & * \\
- reg\_east\_of\_england & 0.19067 & 0.03011 & 6.332 & 0(approx) & *** \\
- reg\_london & 0.98121 & 0.02746 & 35.727 & 0(approx) & *** \\
- reg\_south\_east & 0.47361 & 0.02630 & 18.007 & 0(approx) & *** \\
- reg\_south\_west & 0.25482 & 0.02982 & 8.544 & 0(approx) & *** \\ [1ex]
+ reg\_east\_of\_england & 0.19067 & 0.03011 & 6.332 & 0(approx.) & *** \\
+ reg\_london & 0.98121 & 0.02746 & 35.727 & 0(approx.) & *** \\
+ reg\_south\_east & 0.47361 & 0.02630 & 18.007 & 0(approx.) & *** \\
+ reg\_south\_west & 0.25482 & 0.02982 & 8.544 & 0(approx.) & *** \\ [1ex]
  \hline
 \end{tabular}
 \caption{Hedonic regression of \gls{price2}. Signif. codes:  0 `***' 0.001 `**' 0.01 `*' 0.05 `.' 0.1 ` ' 1}
@@ -463,11 +463,11 @@ Points with extreme values of variables $x_i$ are said to have high leverage. Hi
 \begin{figure}[H]
     \centering
     \includegraphics[width=18cm]{3.3 images/3.3.4.png}
-    \caption{Standarized Residuals vs Leverage}
+    \caption{Standardized Residuals vs Leverage}
     \label{fig:lev}
 \end{figure}
 
-\autoref{fig:lev} below shows the standarized residuals plotted against the leverage. The contour lines of Cook's Distance are not visible in the graph. Hence, it is evident that the number of outliers are too less. So, we do not need to rerun the model by removing outliers.
+\autoref{fig:lev} below shows the standardized residuals plotted against the leverage. The contour lines of Cook's Distance are not visible in the graph. Hence, it is evident that the number of outliers is too less. So, we do not need to rerun the model by removing outliers.
 
 \subsubsection{Cook's Distance}
 Large residuals (outliers) and/or excessive leverage in data points can skew the conclusion and accuracy of a regression.
@@ -475,7 +475,7 @@ The Cook's distance statistic for each observation determines how much the model
 Cook's distance $D_{i}$ of observation $i$ is defined as the sum of all the changes in the regression model when observation $i$ is removed from it
 $$D_{i}={\frac {1}{(K+1)s^{2}} \sum_ {j=1}^{n}(\hat y_j-\hat y_{j(i)})}={\frac {e_{i}^{2}}{(K+1)s^{2}}}\left[{\frac {h_{ii}}{(1-h_{ii})^{2}}}\right].$$
 where ${\widehat {y\, }}_{j(i)}$ is the fitted response value obtained when excluding $i$, and $s$ is the standard error.
-\autoref{fig:cooks1} shows the Cook's Distance of each response value.Hence, we can notice that the Cook's Distance is mostly small for each value.
+\autoref{fig:cooks1} shows the Cook's Distance of each response value. Hence, we can notice that the Cook's Distance is mostly small for each value.
 \begin{figure}[H]
     \centering
     \includegraphics[width=18cm]{3.3 images/3.3.4.2.png}
@@ -487,12 +487,13 @@ As a result, our fitted model is not extremely distorted. We can see there are t
 \begin{figure}[H]
     \centering
     \includegraphics[width=18cm]{3.3 images/3.3.4.1.png}
-    \caption{Cook's Distance plotted against Leverage.The contours in the scatterplot are standardized residuals labelled with their magnitudes}
+    \caption{Cook's Distance plotted against Leverage. The contours in the scatterplot are standardized residuals labelled with their magnitudes}
     \label{fig:cooks2}
 \end{figure}
-On the other hand \autoref{fig:cooks2} shows the plot of leverage and cooks distance.
+On the other hand, \autoref{fig:cooks2} shows the plot of leverage and cook’s distance.
 
 \section{Price vs socio-economic variables}
+\label{sec:pvsse}
 We would like to relate \gls{price1} and \gls{price2} with the socio-economic variables \gls{imdg}, \gls{income}, \gls{emp}, \gls{educ}, \gls{health}, \gls{crime}, \gls{barrier}, \gls{living}. This would reveal the dependency of housing prices on socio-economic environment.
 We assume that errors are normally distributed in a number of statistical procedures, including regression. The plots given below clearly show that the \gls{price1} and \gls{price2} variables are not normal.
 
@@ -518,7 +519,7 @@ By using maximum likelihood estimator, a value of $\lambda$ is found which makes
 R already has a function in its MASS library, \textbf{boxcox(object, …)} where object refers to the linear model we want to fit. After running the code, it is noticed that, 
 $$\lambda_{\textrm{\gls{price1}}}=0.02$$
 $$\lambda_{\textrm{\gls{price2}}}=-0.3$$
-We take $0.02 \approx 0$, and we transform \gls{price1} variable to $\ln(\textrm{\gls{price1})}$ and \gls{price2} variable to $\frac{(\textrm{\gls{price2}})^{-0.03}-1}{-0.03}$.\\
+We take $0.02 \approx. 0$, and we transform \gls{price1} variable to $\ln(\textrm{\gls{price1})}$ and \gls{price2} variable to $\frac{(\textrm{\gls{price2}})^{-0.03}-1}{-0.03}$.\\
 
 \begin{figure}[H]
     \centering
@@ -536,19 +537,19 @@ The plots above are symmetric and look like normal distribution. We can now move
  \hline
  Variable & Estimate & Std Error & t-value & Pr($>|t|$) &   \\ [0.5ex] 
  \hline
- (Intercept) & 10.82817670995 & 0.04523532930 & 239.374 & 0(approx) & *** \\
- imd\_score & -0.00006253022 & 0.00000696566 & -8.977 & 0(approx) & *** \\
+ (Intercept) & 10.82817670995 & 0.04523532930 & 239.374 & 0(approx.) & *** \\
+ imd\_score & -0.00006253022 & 0.00000696566 & -8.977 & 0(approx.) & *** \\
  income\_score & -0.00001487051 & 0.00000390421 & -3.809 & 0.000142 & *** \\
- emp\_score & 0.00003609509 & 0.00000368207 & 9.803 & 0(approx) & *** \\
- educ\_score & 0.00003438949 & 0.00000196613 & 17.491 & 0(approx) & *** \\
- health\_score & 0.00003242077 & 0.00000250168 & 12.960 & 0(approx) & *** \\
+ emp\_score & 0.00003609509 & 0.00000368207 & 9.803 & 0(approx.) & *** \\
+ educ\_score & 0.00003438949 & 0.00000196613 & 17.491 & 0(approx.) & *** \\
+ health\_score & 0.00003242077 & 0.00000250168 & 12.960 & 0(approx.) & *** \\
  crime\_score & 0.00000174045 & 0.00000167774 & 1.037 & 0.299622 &  \\
  barrier\_score & -0.00000001551 & 0.00000146222 & -0.011 & 0.991539 &  \\  
- living\_score & 0.00001157480 & 0.00000167902 & 6.894 & 0(approx) & *** \\ [1ex]
+ living\_score & 0.00001157480 & 0.00000167902 & 6.894 & 0(approx.) & *** \\ [1ex]
  \hline
 \end{tabular}
 \captionsetup{justification=centering}  
-\caption{Trasformed \gls{price1} vs socio-economic variables.\\ Signif. codes:  0 `***' 0.001 `**' 0.01 `*' 0.05 `.' 0.1 ` ' 1}
+\caption{Transformed \gls{price1} vs socio-economic variables.\\ Signif. codes:  0 `***' 0.001 `**' 0.01 `*' 0.05 `.' 0.1 ` ' 1}
 \label{table:3}
 \end{table}
 
@@ -558,19 +559,19 @@ The plots above are symmetric and look like normal distribution. We can now move
  \hline
  Variable & Estimate & Std Error & t-value & Pr($>|t|$) &  \\ [0.5ex] 
  \hline
- (Intercept) & 3.18665988102 & 0.00087845134 & 3627.588 & 0(approx) & *** \\
- imd\_score & -0.00000193203 & 0.00000013527 & -14.283 & 0(approx) & *** \\
+ (Intercept) & 3.18665988102 & 0.00087845134 & 3627.588 & 0(approx.) & *** \\
+ imd\_score & -0.00000193203 & 0.00000013527 & -14.283 & 0(approx.) & *** \\
  income\_score & -0.00000017160 & 0.00000007582 & -2.263 & 0.0237 & * \\ 
- emp\_score & 0.00000103479 & 0.00000007150 & 14.472 & 0(approx) & *** \\
- educ\_score & 0.00000088244 & 0.00000003818 & 23.112 & 0(approx) & *** \\
- health\_score & 0.00000085907 & 0.00000004858 & 17.683 & 0(approx) & *** \\
+ emp\_score & 0.00000103479 & 0.00000007150 & 14.472 & 0(approx.) & *** \\
+ educ\_score & 0.00000088244 & 0.00000003818 & 23.112 & 0(approx.) & *** \\
+ health\_score & 0.00000085907 & 0.00000004858 & 17.683 & 0(approx.) & *** \\
  crime\_score & 0.00000014584 & 0.00000003258 & 4.476 & 0.000008 & *** \\
  barrier\_score & 0.00000004633 & 0.00000002840 & 1.632 & 0.1028 &  \\  
- living\_score & 0.00000026311 & 0.00000003261 & 8.069 & 0(approx) & *** \\ [1ex]
+ living\_score & 0.00000026311 & 0.00000003261 & 8.069 & 0(approx.) & *** \\ [1ex]
  \hline
 \end{tabular}
 \captionsetup{justification=centering}
-\caption{Trasformed \gls{price2} vs socio-economic variables.\\Signif. codes:  0 `***' 0.001 `**' 0.01 `*' 0.05 `.' 0.1 ` ' 1}
+\caption{Transformed \gls{price2} vs socio-economic variables.\\Signif. codes:  0 `***' 0.001 `**' 0.01 `*' 0.05 `.' 0.1 ` ' 1}
 \label{table:4}
 \end{table}
 
@@ -580,20 +581,20 @@ The plots above are symmetric and look like normal distribution. We can now move
 A partial residual plot is a scatterplot that depicts the connection between a specific independent variable ($x_i$) and the response variable ($y$) in the presence of other independent variables.
 A partial residual plot is a significant tool for determining if a given variable has a linear connection with the response variable.
 Partial residuals are computed as:
-$$\textrm{Residuals} +{\hat {\beta }}_{i}x_{i}\footnote{\textbf{Note}: The Residuals are the residuals from the full model.}$$
+$$\textrm{Residuals}\footnote{\textbf{Note}: The Residuals are the residuals from the full model.} +{\hat {\beta }}_{i}x_{i}$$
 In a partial residual plot, these partial residuals are plotted against $x_i$. The termplot function of R helps us to create such plots.
 This function additionally takes the regression hyperplane's projection to the $x_i$ versus $y$ plane. The slope of the line is the coefficient of $x_i$ in the original linear model.
 Moreover, it further adds a smooth curve to the plot. This allows us to determine whether the $x_i$ has any non-linear relationships.
 \begin{figure}[H]
     \centering
     \includegraphics[width=18cm]{4. price vs socio-eco images/par.resid_1Plot.png}
-    \caption{Plot of partial residuals(gray dots) and regression terms(the blue solid line) of transformed \gls{price1} across the predictor variables along with smooth fitted curve}
+    \caption{Plot of partial residuals(grey dots) and regression terms(the blue solid line) of transformed \gls{price1} across the predictor variables along with smooth fitted curve}
     \label{fig:prp1}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=18cm]{4. price vs socio-eco images/par.resid_2Plot.png}
-    \caption{Plot of partial residuals(gray dots) and regression terms(the blue solid line) of transformed \gls{price2} across the predictor variables along with smooth fitted curve(black dashed)}
+    \caption{Plot of partial residuals(grey dots) and regression terms(the blue solid line) of transformed \gls{price2} across the predictor variables along with smooth fitted curve(black dashed)}
     \label{fig:prp2}
 \end{figure}
 
@@ -605,7 +606,7 @@ In this section, we utilise the repeat-sales approach to compare the selling pri
 If a property does not change, this approach can be used to examine how prices vary over time by comparing the difference in sale prices of the same house.
 
 \subsection{Preparing the data for repeat sales index}
-The original dataset had the repeat sales prices of houses. The repeat sales transactions took place from 1995 to 2012, for this data set. We made a new dataset that consisted of variables Y1995, Y1996, ... and so on upto Y2012.These variables take the value -1 if the first sale transaction occurred in that year, 1 if the second sale transaction occurred in that year, and 0 otherwise, for each house. The variable log\_change each derived as:
+The original dataset had the repeat sales prices of houses. The repeat sales transactions took place from 1995 to 2012, for this data set. We made a new dataset that consisted of variables Y1995, Y1996, ... and so on up to Y2012.These variables take the value -1 if the first sale transaction occurred in that year, 1 if the second sale transaction occurred in that year, and 0 otherwise, for each house. The variable log\_change each derived as:
 \begin{center}
     log\_change $=$ ln\_price\_2 $-$ ln\_price\_1
 \end{center}
@@ -640,7 +641,7 @@ Landlords can make informed investments when there is a clear link between price
 \begin{itemize}
     \item For hedonic regression, a large  data must be collected and processed with. However, the data that was utilised only had 4201 values. The Hedonic Price Index calculates how much individuals are prepared to pay for alleged differences in environmental quality and its implications. However, if individuals are ignorant of the link between environmental attributes and property worth, the value will not be reflected in the price. 
     \item The repeat sales technique has a key flaw in that it excludes homes that sell only once during the data collection period. Another issue is that all houses age, and as a result, the houses alter, which might impact the index, which is not taken into account here.
-    \item While using box-cox transformation, the lambda obtained for \gls{price2} was not zero, and is therefore not possible to interpret. Also box-cox transformation does not always guarantee normality.
+    \item While using box-cox transformation, the lambda obtained for \gls{price2} was not zero, and is therefore not possible to interpret. Also, box-cox transformation does not always guarantee normality.
 \end{itemize}
 \subsection{Extensions}
 The chief findings support existing literature on “Is there an Economic Case for Energy-Efficient Dwellings in the UK Private Rental Market?” by contributing to the observational evidence on the link between energy efficiency ratings and pricing decisions in the housing market, and establishing that the aspects covered by EPCs are broadly important to housing price.
@@ -656,7 +657,7 @@ Here is the list of extension we have attempted, which were not there in the ori
     \item Diagnostic plots in \autoref{diag_plot}
     \item Box-Cox transformation in \autoref{boxcox}
     \item Partial Residue Plots, \autoref{prp}
-    \item Repeat sales index of the the price variables across years, \autoref{rsi}
+    \item Repeat sales index of the price variables across years, \autoref{rsi}
 \end{enumerate}
 
 \subsection{Future Scope}
@@ -674,7 +675,7 @@ On a bigger dataset, the analysis may be run with additional variables, taking i
     \item Case, K.E., Shiller, R.J. (1987). Prices of single-family homes since 1970: new indexes for four cities. New England Economic Review. Sept./Oct. 45-56. 
     \item Case, K.E., Shiller, R.J. (1989). The efficiency of the market for single family homes. The American Economic Review. 79 125-137
     \item Case, B., Quigley, J.M. (1991). The dynamics of real estate prices. The Review of Economics and Statistics. 73 50-58
-    \item Chaitra H. Nagaraja. Lawrence D. Brown. Linda H. Zhao(2011). \href{https://doi.org/10.1214/10-AOAS380}{``An autoregressive approach to house price modeling."} Ann. Appl. Stat. 5 (1) 124 - 149, March 2011.
+    \item Chaitra H. Nagaraja. Lawrence D. Brown. Linda H. Zhao(2011). \href{https://doi.org/10.1214/10-AOAS380}{``An autoregressive approach to house price modelling."} Ann. Appl. Stat. 5 (1) 124 - 149, March 2011.
     \item \href{https://www.jstor.org/stable/24885063}{Repeat Sales House Price Index Methodology}. Journal of Real Estate Literature. Vol. 22, No. 1 (2014), pp. 23-46.
 \end{enumerate}
 
